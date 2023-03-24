@@ -45,7 +45,7 @@ export default function Chat() {
   }, [, user, ress]);
 
   useEffect(() => {
-    socket.current = io("http://localhost:5000");
+    socket.current = io("https://quilt-chat-1-zb1q.vercel.app/");
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
