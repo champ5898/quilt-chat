@@ -1,11 +1,25 @@
 import SidebarRow from "./SidebarRow";
 
-function Sidebar({ setCurrentChat,setRes, conversations, joke, logins, data }) {
+function Sidebar({
+  setCurrentChat,
+  setRes,
+  conversations,
+  joke,
+  logins,
+  data,
+}) {
   return (
-    <div className="sm:px-4 sm:w-96">
+    <div
+      style={{ borderRight: "1px solid rgb(44,44,44)" }}
+      className="sm:px-4 sm:w-96"
+    >
       <div
+        style={{
+          backgroundColor: "rgb(24,27,33)",
+          height: "3.5rem",
+        }}
         className={
-          "sm:border-r-2 ml-2 sm:px-1 sm:py-2 bg-gray-200 rounded-xl shadow-md sm:flex flex-col"
+          "sm:border-r-2 ml-2 sm:px-1 sm:py-2   rounded-xl shadow-md sm:flex flex-col"
         }
       >
         {joke?.map((c) => (
