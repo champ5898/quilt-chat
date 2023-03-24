@@ -231,13 +231,15 @@ export default function Chat() {
               className="mt-10 mr-10"
               style={{
                 position: "absolute",
-                top: "10%",
+                top: "20%",
+                right: "10%",
+                // textAlign: "center",
                 fontSize: "50px",
                 color: "rgb(224, 220, 220)",
                 cursor: "default",
               }}
             >
-              Open a conversation to start a chat.
+              Open a conversation to start chatting.
             </span>
           )}
         </div>

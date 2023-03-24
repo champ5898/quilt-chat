@@ -52,8 +52,8 @@ function Message({ message, own, sropee }) {
       )}
       {}
       {!own && (
-        <div ref={sropee} className="py-2 flex space-x-3">
-          <div className="flex flex-col items-center cursor-pointer">
+        <div ref={sropee} className="py-2  flex space-x-3">
+          <div className="flex flex-col  items-center cursor-pointer">
             <div>
               {message.profile ? (
                 <Image
@@ -74,7 +74,7 @@ function Message({ message, own, sropee }) {
             </div>
           </div>
 
-          <div className="messageText  bg-gray-300 rounded-tr-xl rounded-br-xl rounded-bl-xl">
+          <div className="messageText  bg-black rounded-tr-xl rounded-br-xl rounded-bl-xl">
             <p
               className={`${
                 more ? "line-clamp-6" : "line-clamp-none"

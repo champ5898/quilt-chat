@@ -16,7 +16,8 @@ function Sidebar({
       <div
         style={{
           backgroundColor: "rgb(24,27,33)",
-          height: "3.5rem",
+          // height: "1px",
+          // display: "none",
         }}
         className={
           "sm:border-r-2 ml-2 sm:px-1 sm:py-2   rounded-xl shadow-md sm:flex flex-col"
