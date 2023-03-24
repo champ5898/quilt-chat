@@ -9,9 +9,12 @@ export default function Nav() {
   return (
     <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 ">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-        <div className="w-full relative flex justify-end lg:w-auto lg:justify-between">
+        <div
+          className="w-full relative   lg:w-auto lg:justify-between"
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
           <a
-            className="text-white text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
+            className="  text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
             href="#"
           >
             {user?.name}
@@ -24,8 +27,7 @@ export default function Nav() {
             }}
             className="bg-slate-500 text-center cursor-pointer w-40 text-white rounded-md hover:scale-105 hover:backdrop-blur-3xl px-2 py-2"
           >
-            {" "}
-            Log out{" "}
+            Log out
           </h1>
         </div>
       </div>

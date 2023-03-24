@@ -193,6 +193,7 @@ export default function Chat() {
       <Loader open={open} setOpen={setOpen} />
       <div className="mb-6 mt-0">
         <Nav />
+        <Nav />
       </div>
       <div className="relative mt-5">
         <Header
