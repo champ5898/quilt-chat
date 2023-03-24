@@ -12,7 +12,7 @@ app.use(router);
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://quilt-chat-1.vercel.app/",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true,

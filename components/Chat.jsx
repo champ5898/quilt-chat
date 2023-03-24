@@ -45,7 +45,7 @@ export default function Chat() {
   }, [, user, ress]);
 
   useEffect(() => {
-    socket.current = io("https://quilt-chat-1-zb1q.vercel.app/");
+    socket.current = io("http://localhost:5000");
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -187,15 +187,14 @@ export default function Chat() {
 
   return (
     <div
-      style={{ height: "100vh" }}
-      className="bg-gray-900 h-screen overflow-x-hidden overflow-y-scroll"
+      style={{ height: "100vh", backgroundColor: "rgb(18,18,20)" }}
+      className="  h-screen overflow-x-hidden overflow-y-scroll"
     >
       <Loader open={open} setOpen={setOpen} />
       <div className="mb-6 mt-0">
         <Nav />
-        <Nav />
       </div>
-      <div className="relative mt-5">
+      <div className="relative mt-15">
         <Header
           online={onlineUsers}
           setSection={setSection}
@@ -203,7 +202,10 @@ export default function Chat() {
         />
       </div>
 
-      <main className="flex fixed bg-gray-900 h-full w-full">
+      <main
+        style={{ backgroundColor: "rgb(18,18,20)" }}
+        className="flex fixed bg-gray-900 h-full w-full"
+      >
         <Sidebar
           setRes={setRes}
           data={joke?._id}

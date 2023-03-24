@@ -56,7 +56,7 @@ function SidebarRow({
   }
 
   return (
-    <div className="flex cursor-pointer group border-b  py-2 sm:px-3 sm:space-x-7">
+    <div className="flex cursor-pointer group    py-2 sm:px-3 sm:space-x-7">
       <div className="flex items-center  space-x-3">
         <div>
           {user?.profpic ? (
@@ -75,7 +75,7 @@ function SidebarRow({
         </div>
 
         <div className=" flex-col ">
-          <h1 className="sm:text-base text-xs font-medium group-hover:text-blue-500 sm:inline-flex">
+          <h1 className="sm:text-base text-white text-xs font-medium group-hover:text-blue-500 sm:inline-flex">
             {user?.name}
           </h1>
           {/* <h1 className="text-gray-500 text-sm hidden sm:inline-flex">
