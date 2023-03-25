@@ -4,10 +4,10 @@ import { Search, Grid, Header, Segment } from "semantic-ui-react";
 import profilesData from "../data/profile.json";
 
 const initialState = { isLoading: false, results: [], value: "" };
-const users = profilesData?.profiles
+const users = profilesData?.profiles;
 export default class Searches extends Component {
   state = initialState;
-  
+
   constructor(props) {
     super(props);
     this.state = { details: [] };
@@ -16,19 +16,19 @@ export default class Searches extends Component {
   componentDidMount() {
     console.log(this.props.user);
     const userss = async () => {
-        var obj = await [];
-        var res = await Array.from(users, (x) =>
-          obj.push({
-            title: x.email,
-            description: x.city,
-            image: x.profpic,
-            price: `${x.name}`,
-          })
-        );
-        console.log("obj", obj)
-        this.setState({
-          details: obj,
-        });
+      var obj = await [];
+      var res = await Array.from(users, (x) =>
+        obj.push({
+          title: x.email,
+          description: x.city,
+          image: x.profpic,
+          price: `${x.name}`,
+        })
+      );
+      console.log("obj", obj);
+      this.setState({
+        details: obj,
+      });
     };
 
     userss();
@@ -38,9 +38,9 @@ export default class Searches extends Component {
     await this.setState({ value: result.age });
     await this.props.setSection(result.description);
     await this.props.onSearch(result.title);
-     this.setState({
-       value : ""
-     });
+    this.setState({
+      value: "",
+    });
   };
 
   handleSearchChange = (e, { value }) => {
@@ -56,8 +56,6 @@ export default class Searches extends Component {
         isLoading: false,
         results: _.filter(this.state.details, isMatch),
       });
-
-
     }, 300);
   };
 
@@ -78,8 +76,6 @@ export default class Searches extends Component {
             value={value}
           />
         </Grid.Column>
-
- 
       </Grid>
     );
   }

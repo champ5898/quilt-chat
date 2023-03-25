@@ -18,9 +18,12 @@ export default function Nav() {
             "https://ipfs.io/ipfs/bafybeigieawtulhl3vgycbx6hsezqf7jczralrxvkvhrbqfn3obgf222p4/logo.svg"
           }
           alt="Quilt"
-          width={150}
-          height={50}
-          style={{ cursor: "pointer" }}
+          style={{
+            width: "150",
+            height: "50",
+
+            cursor: "pointer",
+          }}
           onClick={() => {
             router.push("/");
             setIsDrawerOpen(false);
