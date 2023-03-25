@@ -19,7 +19,7 @@ export default function Nav() {
           }
           alt="Quilt"
           style={{
-            width: "150",
+            width: "149.9",
             height: "50",
 
             cursor: "pointer",
