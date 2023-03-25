@@ -45,7 +45,7 @@ export default function Chat() {
   }, [, user, ress]);
 
   useEffect(() => {
-    socket.current = io("http://localhost:5000");
+    socket.current = io("https://api.lounge-quilt.com/");
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
