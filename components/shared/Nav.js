@@ -8,9 +8,9 @@ export default function Nav() {
   const { handleLogout, user } = useUser();
   const router = useRouter();
   return (
-    <nav className="top-0 absolute z-50  flex flex-wrap items-center  ">
+    <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 ">
       <div
-        className="container px-4 mx-auto flex w-full  py-3 items-center justify-between"
+        className="container px-4 mx-auto flex  items-center justify-between"
         style={{ display: "flex", justifyContent: "space-between" }}
       >
         <img
@@ -19,14 +19,9 @@ export default function Nav() {
           }
           alt="Quilt"
           style={{
-            width: "149.9",
+            width: "150",
             height: "50",
-
             cursor: "pointer",
-          }}
-          onClick={() => {
-            router.push("/");
-            setIsDrawerOpen(false);
           }}
         />
         <div
