@@ -8,9 +8,9 @@ export default function Nav() {
   const { handleLogout, user } = useUser();
   const router = useRouter();
   return (
-    <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 ">
+    <nav className="top-0 absolute z-50  flex flex-wrap items-center  ">
       <div
-        className="container px-4 mx-auto flex  items-center justify-between"
+        className="container px-4 mx-auto flex w-full  py-3 items-center justify-between"
         style={{ display: "flex", justifyContent: "space-between" }}
       >
         <img
