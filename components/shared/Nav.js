@@ -21,12 +21,7 @@ export default function Nav() {
           style={{
             width: "150",
             height: "50",
-
             cursor: "pointer",
-          }}
-          onClick={() => {
-            router.push("/");
-            setIsDrawerOpen(false);
           }}
         />
         <div
