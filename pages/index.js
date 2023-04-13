@@ -1,17 +1,9 @@
-import { useUser } from "@/context/AuthContext";
-import Login from "@/components/Login";
-import Chat from "@/components/Chat";
+import Home from "../components/home";
 
-
-export default function Home() {
-  const { user } = useUser();
- 
-
-  if (!user) {
-    return <Login />;
-  }
-
+export default function index() {
   return (
-    <Chat />
+    <div>
+      <Home />
+    </div>
   );
 }
