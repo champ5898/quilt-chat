@@ -18,33 +18,12 @@ import {
 } from "../graphql/queries";
 import { userData } from "../context/userData";
 const ClaimAUsername = () => {
-  let address = userData((state) => state.address);
+  const address = userData((state) => state.address);
   const network = userData((state) => state.network);
   const Username = userData((state) => state.username);
   const setUsername = userData((state) => state.setUsername);
   const [username, setusername] = useState(Username);
-  // if (network == "polygon") {
-  //   address = address.toLowerCase();
-  // }
-  console.log(address);
 
-  const { loading, error, data } = useQuery(GET_PROFILE_BYADDRESS, {
-    variables: { address: address },
-    pollInterval: 1000,
-  });
-
-  const updateData = async () => {
-    try {
-      const name = await data.getProfileByAddress.username;
-
-      setusername(name);
-      setUsername(name);
-      // console.log(username);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  updateData();
   const [updateUsername] = useMutation(UPDATE_USERNAME, {
     onCompleted: (data) => {
       // console.log(data.updateUsername.username);
@@ -69,12 +48,14 @@ const ClaimAUsername = () => {
         </h1>
         <h2 className={styles.youCanChange}>you can change it anytime</h2>
       </div>
+
       <input
         className={styles.claimAUsernameItem}
         type="text"
-        placeholder={username}
+        value={username}
         onChange={(e) => setusername(e.target.value)}
       />
+
       <div className={styles.frameParent}>
         <button className={styles.claimWrapper} onClick={() => onSubmit()}>
           <b className={styles.claim}>Claim</b>
