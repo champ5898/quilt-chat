@@ -1,0 +1,97 @@
+.frameChild {
+    position: relative;
+    width: 81px;
+    height: 81px;
+    flex-shrink: 0;
+  }
+  .keysInner {
+    width: 505px;
+    height: 96px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .yourKeys {
+    color: var(--color-springgreen);
+  }
+  .getYourKeysContainer {
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: inherit;
+    line-height: 50px;
+    font-weight: 700;
+    font-family: inherit;
+    display: inline-block;
+    width: 715px;
+  }
+  .getYourKeysWrapper {
+    position: relative;
+    width: 393px;
+    height: 50px;
+    flex-shrink: 0;
+  }
+  .aSetOf {
+    margin: 0;
+  }
+  .aSetOfContainer {
+    margin: 0;
+    position: relative;
+    font-size: inherit;
+    line-height: 34px;
+    font-weight: 500;
+    font-family: inherit;
+  }
+  .aSetOfKeyControlsYourAccWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 20px;
+    color: #7f7f7f;
+  }
+  .generateKeys {
+    position: relative;
+    font-size: 14px;
+    display: inline-block;
+    font-family: var(--font-inter);
+    color: var(--color-white);
+    text-align: left;
+    width: 99px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+  .generateKeysWrapper,
+  .keys {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .generateKeysWrapper {
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background-color: var(--color-springgreen);
+    border-radius: 6px;
+    width: 150px;
+    height: 55px;
+    flex-shrink: 0;
+    align-items: center;
+  }
+  .keys {
+    position: relative;
+    background-color: #121214;
+    width: 100%;
+    height: 100%;
+    padding: 299px 160px;
+    box-sizing: border-box;
+    align-items: flex-start;
+    gap: 22px;
+    text-align: left;
+    font-size: 30px;
+    color: var(--color-white);
+    font-family: var(--font-inter);
+  }

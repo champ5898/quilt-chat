@@ -1,12 +1,30 @@
-import "semantic-ui-css/semantic.min.css";
 import "@/styles/globals.css";
-import { UserProvider } from "@/context/AuthContext";
-function App({ Component, pageProps }) {
-  return (
-    <UserProvider>
-      <Component {...pageProps} />
-    </UserProvider>
-  );
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  gql,
+} from "@apollo/client";
+
+let auth = "";
+// const endpoint = process.env.GRAPHQL_URI;
+if (typeof window !== "undefined") {
+  const token = localStorage.getItem("token");
+  auth = "Bearer " + token;
 }
 
-export default App
+const client = new ApolloClient({
+  uri: "https://api.lounge-quilt.com/",
+  cache: new InMemoryCache(),
+  headers: {
+    authorization: auth,
+  },
+});
+
+const App = ({ Component, pageProps }) => (
+  <ApolloProvider client={client}>
+    <Component {...pageProps} />
+  </ApolloProvider>
+);
+
+export default App;

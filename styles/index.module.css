@@ -1,0 +1,95 @@
+.blockchainSocial {
+    color: #00e467;
+  }
+  .makingBlockchainSocialContainer {
+    margin: 0;
+    position: relative;
+    font-size: inherit;
+    line-height: 50px;
+    font-weight: 700;
+    font-family: inherit;
+    display: inline-block;
+    width: 600px;
+    height: 39px;
+    flex-shrink: 0;
+  }
+  .frameChild {
+    position: relative;
+    border-radius: 8px;
+    width: 613px;
+    height: 351px;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+  .makingBlockchainSocialParent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 406px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap-base);
+  }
+  .photo {
+    position: relative;
+    width: 613px;
+    height: 406px;
+    flex-shrink: 0;
+  }
+  .signInWith {
+    margin: 0;
+  }
+  .signInWithContainer {
+    margin: 0;
+    align-self: stretch;
+    position: relative;
+    font-size: inherit;
+    line-height: 50px;
+    font-weight: 700;
+    font-family: inherit;
+  }
+  .buttons {
+    align-self: stretch;
+    height: 132px;
+    flex-shrink: 0;
+    flex-direction: column;
+  }
+  .buttons,
+  .login,
+  .walletLogin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .login {
+    width: 372px;
+    height: 252px;
+    flex-shrink: 0;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .walletLogin {
+    position: relative;
+    background-color: #121214;
+    width: 100%;
+    overflow: hidden;
+    flex-direction: row;
+    padding: 263px 169px;
+    box-sizing: border-box;
+    gap: var(--gap-145xl);
+    text-align: center;
+    font-size: var(--font-size-11xl);
+    color: var(--color-white);
+    font-family: var(--font-inter);
+  }
+  @media screen and (max-width: 960px) {
+    .walletLogin {
+      flex-direction: column;
+      gap: var(--gap-145xl);
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  
