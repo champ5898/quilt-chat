@@ -1,0 +1,119 @@
+.claimAUsernameChild {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+}
+.username {
+  color: var(--color-springgreen);
+}
+.claimAUsernameContainer,
+.youCanChange {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+  font-family: inherit;
+}
+.claimAUsernameContainer {
+  font-size: inherit;
+  line-height: 50px;
+  font-weight: 700;
+}
+.youCanChange {
+  font-size: var(--font-size-xl);
+  line-height: 34px;
+  font-weight: 500;
+  color: var(--color-gray-500);
+}
+.claimAUsernameParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+}
+.claim,
+.claimAUsernameItem {
+  position: relative;
+  flex-shrink: 0;
+  color: white;
+  font-size: 30px;
+}
+.claimAUsernameItem {
+  border: 0;
+  background-color: var(--color-gray-200);
+  border-radius: var(--br-5xs);
+  width: 554px;
+  height: 68px;
+}
+.claim {
+  font-size: var(--font-size-sm);
+  display: inline-block;
+  font-family: var(--font-inter);
+  color: var(--color-white);
+  text-align: center;
+  width: 63px;
+  height: 17px;
+}
+.claimWrapper {
+  cursor: pointer;
+  border: 0;
+  padding: 19px 56px;
+  background-color: var(--color-springgreen);
+  border-radius: var(--br-7xs);
+  width: 175px;
+  height: 55px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+.continue {
+  position: relative;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-inter);
+  color: var(--color-white);
+  text-align: left;
+}
+.continueWrapper,
+.frameParent {
+  display: flex;
+  align-items: center;
+}
+.continueWrapper {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: var(--color-springgreen);
+  border-radius: var(--br-7xs);
+  width: 175px;
+  height: 55px;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: center;
+}
+.frameParent {
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 50px;
+}
+.claimAUsername {
+  position: relative;
+  background-color: var(--color-gray-300);
+  width: 100%;
+  height: 933px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 150px 200px;
+  box-sizing: border-box;
+  align-items: flex-start;
+  justify-content: space-between;
+  text-align: left;
+  font-size: var(--font-size-11xl);
+  color: var(--color-white);
+  font-family: var(--font-inter);
+}
