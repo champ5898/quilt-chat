@@ -2,7 +2,7 @@ import Wallet from "./wallet";
 import Keys from "./keys";
 import styles from "../styles/index.module.css";
 import Image from "next/image";
-import chat from "../img/chat.png";
+import chat from "../img/chat.svg";
 import { userData } from "../context/userData";
 
 export default function Home() {

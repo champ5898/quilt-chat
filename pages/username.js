@@ -17,12 +17,34 @@ import {
   UPDATE_USERNAME,
 } from "../graphql/queries";
 import { userData } from "../context/userData";
+import { useRouter } from "next/router";
+
 const ClaimAUsername = () => {
   const address = userData((state) => state.address);
   const network = userData((state) => state.network);
   const Username = userData((state) => state.username);
   const setUsername = userData((state) => state.setUsername);
   const [username, setusername] = useState(Username);
+  const router = useRouter();
+
+  // const { loading, error, data } = useQuery(GET_PROFILE_BYADDRESS, {
+  //   variables: { address: address },
+  //   pollInterval: 1000,
+  // });
+  // const updateData = () => {
+  //   try {
+  //     const name = data.getProfileByAddress.username;
+  //     // setusername(name);
+
+  //     setUsername(name);
+
+  //     console.log(loading, data, error);
+  //   } catch (err) {
+  //     console.log(err);
+  //     console.log(loading, data, error);
+  //   }
+  // };
+  // setInterval(updateData, 10000);
 
   const [updateUsername] = useMutation(UPDATE_USERNAME, {
     onCompleted: (data) => {
@@ -52,7 +74,7 @@ const ClaimAUsername = () => {
       <input
         className={styles.claimAUsernameItem}
         type="text"
-        value={username}
+        placeholder={username}
         onChange={(e) => setusername(e.target.value)}
       />
 
@@ -60,7 +82,10 @@ const ClaimAUsername = () => {
         <button className={styles.claimWrapper} onClick={() => onSubmit()}>
           <b className={styles.claim}>Claim</b>
         </button>
-        <button className={styles.continueWrapper}>
+        <button
+          className={styles.continueWrapper}
+          onClick={() => router.push("/chat")}
+        >
           <b className={styles.continue}>Continue</b>
         </button>
       </div>

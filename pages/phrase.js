@@ -22,23 +22,26 @@ const Phrase = () => {
   const network = userData((state) => state.network);
   const Username = userData((state) => state.username);
   const setUsername = userData((state) => state.setUsername);
+
   const { loading, error, data } = useQuery(GET_PROFILE_BYADDRESS, {
     variables: { address: address },
     pollInterval: 1000,
   });
-  const updateData = async () => {
+  const updateData = () => {
     try {
-      const name = await data.getProfileByAddress.username;
+      const name = data.getProfileByAddress.username;
       // setusername(name);
 
       setUsername(name);
 
-      console.log(name);
+      // console.log(loading, data, error);
     } catch (err) {
       console.log(err);
+      // console.log(loading, data, error);
     }
   };
-  updateData();
+  setInterval(updateData, 1000);
+
   if (typeof window !== "undefined") {
     const keys = localStorage.getItem("token");
 
