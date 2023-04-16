@@ -38,7 +38,7 @@ const Wallet = () => {
         method: "eth_requestAccounts",
       });
       // setCurrentAccount(accounts[0]);
-      console.log(accounts[0]);
+      // console.log(accounts[0]);
       login(accounts[0]);
       createAcc(accounts[0], "polygon");
       setNetwork("polygon");
