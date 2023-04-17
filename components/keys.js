@@ -13,12 +13,12 @@ import { authenticate } from "@/account/auth";
 const Keys = () => {
   const address = userData((state) => state.address);
   const network = userData((state) => state.network);
-  const [token, setToken] = useState("");
+  const setToken = userData((state) => state.setToken);
   const router = useRouter();
   //request token on graphql
   const [requestToken] = useMutation(REQUEST_TOKEN, {
     onCompleted: (data) => {
-      setToken(data.requestToken);
+      console.log(data);
     },
     onError: (error) => {
       console.log(error);
@@ -38,6 +38,7 @@ const Keys = () => {
       const auth = data.data.requestToken + "-_-" + signature;
       // setToken(auth);
       localStorage.setItem("token", auth);
+      setToken(auth);
       // console.log(auth);
       router.push("/phrase");
     } else {
