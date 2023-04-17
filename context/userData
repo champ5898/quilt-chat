@@ -12,6 +12,8 @@ export const userData = create((set) => ({
   bio: "something about yourself in few words",
   webpage: "url",
   network: "none",
+  token: "",
+  setToken: (token) => set({ token }),
   login: (address) => set({ address, isLogged: true }),
   setNetwork: (network) => set({ network }),
   setAvatar: (avatar) => set({ avatar }),

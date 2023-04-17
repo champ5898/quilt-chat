@@ -30,7 +30,6 @@ const Phrase = () => {
   const updateData = () => {
     try {
       const name = data.getProfileByAddress.username;
-      // setusername(name);
 
       setUsername(name);
 
