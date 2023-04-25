@@ -25,7 +25,7 @@ const Keys = () => {
     },
   });
   const reqToken = async () => {
-    const keys = localStorage.getItem("token");
+    const keys = sessionStorage.getItem("token");
     console.log(keys);
     if (keys == null) {
       const data = await requestToken({ variables: { address: address } });
@@ -37,7 +37,7 @@ const Keys = () => {
       );
       const auth = data.data.requestToken + "-_-" + signature;
       // setToken(auth);
-      localStorage.setItem("token", auth);
+      sessionStorage.setItem("token", auth);
       setToken(auth);
       // console.log(auth);
       router.push("/phrase");

@@ -64,3 +64,27 @@ export const CREATE_NEWSLETTER_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const SEND_P2P_MESSAGE = gql`
+  mutation ($data: P2pChatCreateDto!) {
+    sendP2pMessage(data: $data) {
+      threadId
+    }
+  }
+`;
+
+export const GET_P2P_MESSAGEFEED = gql`
+  query ($receiverAddress: String!) {
+    getP2pMessageFeed(receiverAddress: $receiverAddress) {
+      senderAddress
+      messageData {
+        contentType
+        content
+      }
+      profile {
+        address
+        verified
+      }
+    }
+  }
+`;

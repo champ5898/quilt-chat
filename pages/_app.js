@@ -9,7 +9,7 @@ import {
 let auth = "";
 // const endpoint = process.env.GRAPHQL_URI;
 if (typeof window !== "undefined") {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   auth = "Bearer " + token;
 }
 

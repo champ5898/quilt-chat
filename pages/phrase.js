@@ -42,7 +42,7 @@ const Phrase = () => {
   setInterval(updateData, 1000);
 
   if (typeof window !== "undefined") {
-    const keys = localStorage.getItem("token");
+    const keys = sessionStorage.getItem("token");
 
     return (
       <div className={styles.keys}>
