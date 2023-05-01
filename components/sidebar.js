@@ -13,12 +13,12 @@ const Sidebar = () => {
     <div className={styles.sidebarParent}>
       <section className={styles.sidebarParentGroup}>
         <button className={styles.logoTextContainer}>
-          {/* <Image
+          <Image
           className={styles.quiltNewLogo8dc214cbfb2f936Icon}
           alt=""
           src={logo}
-        /> */}
-          <p className={styles.logoText}>Quilt</p>
+        />
+          {/* <p className={styles.logoText}>Quilt</p> */}
         </button>
         <button className={styles.communicationCommentParent}>
           <Image className={styles.communicationComment} alt="" src={chat} />
