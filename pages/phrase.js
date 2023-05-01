@@ -22,6 +22,7 @@ const Phrase = () => {
   const network = userData((state) => state.network);
   const Username = userData((state) => state.username);
   const setUsername = userData((state) => state.setUsername);
+  const setFriends = userData((state) => state.setFriends);
 
   const { loading, error, data } = useQuery(GET_PROFILE_BYADDRESS, {
     variables: { address: address },
@@ -30,10 +31,11 @@ const Phrase = () => {
   const updateData = () => {
     try {
       const name = data.getProfileByAddress.username;
-
+      const friends = data.getProfileByAddress.friends;
+      setFriends(friends);
       setUsername(name);
 
-      // console.log(loading, data, error);
+      console.log(loading, data, error);
     } catch (err) {
       console.log(err);
       // console.log(loading, data, error);

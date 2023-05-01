@@ -9,6 +9,7 @@ export const GET_PROFILE_BYADDRESS = gql`
       bio
       externalLink
       profilePicture
+      friends
     }
   }
 `;

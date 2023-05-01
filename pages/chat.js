@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Image from "next/image";
+import { userData } from "../context/userData";
 import Friendlist from "../components/friendlist";
 import Sidebar from "../components/sidebar";
 import styles from "../styles/chat.module.css";
@@ -13,7 +14,12 @@ import user3 from "../img/user3.png";
 import arrow from "../img/arrow.png";
 import ethicon from "../img/eth-icon.svg";
 import threedots from "../img/three-dots.svg";
+
 const Chat = () => {
+  const address = userData((state) => state.address);
+  const network = userData((state) => state.network);
+  const Username = userData((state) => state.username);
+  const setUsername = userData((state) => state.setUsername);
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -51,8 +57,8 @@ const Chat = () => {
         <div className={styles.quiltNewLogo8dc214cbfb2f936Parent}>
           <button className={styles.profileEthCard} data-animate-on-scroll>
             <div className={styles.x4c99923bdParent}>
-              <div className={styles.x4c99923bd}>0x4c99...923bd</div>
-              <div className={styles.ethereum}>Ethereum</div>
+              <div className={styles.x4c99923bd}>{address}</div>
+              <div className={styles.ethereum}>{network}</div>
             </div>
             <Image className={styles.vectorIcon} alt="" src={arrow} />
           </button>
@@ -97,7 +103,6 @@ const Chat = () => {
               </div>
               <div className={styles.frameParent1}>
                 <form className={styles.frameForm}>
-        
                   <Image className={styles.ellipseIcon} alt="" src={user1} />
                   <input type="text" className={styles.frameFormInput} />
                   <button className={styles.iconsaxlinearsend}>
@@ -105,16 +110,16 @@ const Chat = () => {
                   </button>
                 </form>
                 <div className={styles.rightButtonsContainer}>
-                <button className={styles.vectorWrapper}>
-                  <Image className={styles.vectorIcon2} alt="" src={file} />
-                </button>
-                <button className={styles.iconsaxlinearmicrophone2}>
-                  <Image
-                    // className={styles.vectorIcon3}
-                    alt=""
-                    src={microphone}
-                  />
-                </button>
+                  <button className={styles.vectorWrapper}>
+                    <Image className={styles.vectorIcon2} alt="" src={file} />
+                  </button>
+                  <button className={styles.iconsaxlinearmicrophone2}>
+                    <Image
+                      // className={styles.vectorIcon3}
+                      alt=""
+                      src={microphone}
+                    />
+                  </button>
                 </div>
               </div>
             </section>

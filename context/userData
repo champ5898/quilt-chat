@@ -13,6 +13,7 @@ export const userData = create((set) => ({
   webpage: "url",
   network: "none",
   token: "",
+  friends: [],
   setToken: (token) => set({ token }),
   login: (address) => set({ address, isLogged: true }),
   setNetwork: (network) => set({ network }),
@@ -20,6 +21,7 @@ export const userData = create((set) => ({
   setUsername: (username) => set({ username }),
   setEmail: (email) => set({ email }),
   setBio: (bio) => set({ bio }),
+  setFriends: (friends) => set({ friends }),
   setWebpage: (webpage) => set({ webpage }),
   logout: () =>
     set({
