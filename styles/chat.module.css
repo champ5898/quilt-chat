@@ -73,13 +73,13 @@
   background-color: transparent;
   justify-content: flex-start;
   gap: 17px;
-  opacity: 0;
+  opacity: 0; 
 }
 .frameParent.animate {
   animation: 1s ease 0s 1 normal forwards slide-in-top;
 }
 .quiltNewLogo8dc214cbfb2f936Parent {
-  width: 1154px;
+  /* width: 1154px; */
   padding: 0 var(--padding-3xs);
   box-sizing: border-box;
   justify-content: space-between;
@@ -120,6 +120,7 @@
   text-align: left;
   font-size: var(--font-size-3xs);
   color: var(--color-gray-100);
+  padding-top: 5px;
 }
 .sunnndayyyParent {
   flex-direction: column;
@@ -134,11 +135,18 @@
 }
 .ellipseParent {
   align-items: center;
-  gap: var(--gap-3xs);
+  gap: var(--gap-3xs); 
+  margin-left: 28px;
 }
 .frameWrapper {
   width: 746px;
-  align-items: flex-start;
+  align-items: center; 
+  border-bottom: 1px solid #303036;
+  padding: 15px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .frameInner {
   position: relative;
@@ -216,10 +224,11 @@
   color: var(--color-gray-100);
 }
 .frameDiv {
-  width: 707px;
+  /* width: 707px; */
+  width: 100%;
   align-items: flex-start;
   justify-content: center;
-  gap: var(--gap-xl);
+  
 }
 .ellipseIcon {
   position: relative;
@@ -258,15 +267,17 @@
 .frameForm {
   border-radius: 20px;
   background-color: var(--color-gray-200);
-  width: 614px;
+  /* width: 614px; */
+  width: 90%;
   height: 50px;
   flex-shrink: 0;
   display: flex;
   flex-direction: row;
-  padding: var(--padding-6xs) var(--padding-sm);
+  /* padding: var(--padding-6xs) var(--padding-sm); */
   box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
+  padding: 0 10px; 
 }
 .vectorIcon2 {
   position: absolute;
@@ -328,9 +339,10 @@
   justify-content: space-between;
 }
 .frameParent1 {
-  width: 703px;
+  /* width: 703px; */
+  width: 100%;
   flex-direction: row;
-  align-items: center;
+  align-items: center; 
 }
 .frameSection {
   align-self: stretch;
@@ -340,7 +352,8 @@
   text-align: center;
   font-size: var(--font-size-xs);
   color: var(--color-white);
-  font-family: var(--font-inter);
+  font-family: var(--font-inter); 
+  padding: 28px;
 }
 .chat,
 .frameContainer,
@@ -352,9 +365,11 @@
 .frameContainer {
   height: 657px;
   flex-direction: column;
-  padding: var(--padding-3xs) 0;
-  align-items: center;
-  gap: var(--gap-3xl);
+  padding: var(--padding-3xs) 0; 
+  /* gap: var(--gap-3xl); */
+  border-left: 1px solid #303036; 
+  height: 90vh;
+  width: 100%; 
 }
 .chat,
 .frameGroup {
@@ -372,16 +387,15 @@
 .chat {
   position: relative;
   background-color: var(--color-gray-400);
-  width: 100%;
-  height: 933px;
-  overflow: hidden;
-  flex-direction: column;
-  padding: 20px;
+  width: 100%;  
+  /* height: 933px; */
+  /* overflow: hidden; */
+  flex-direction: row;
+  /* padding: 20px; */
   text-align: center;
   font-size: var(--font-size-base);
   color: var(--color-white);
-  font-family: var(--font-inter);
-  ;
+  font-family: var(--font-inter); 
 }
 @media screen and (max-width: 960px) {
   .frameForm {
@@ -390,4 +404,97 @@
     padding-left: var(--padding-sm);
     box-sizing: border-box;
   }
+}
+
+
+/* NEW STYLES */
+.chatRightContainer{
+  display: flex;
+  flex-direction: column; 
+  width: 100%;
+  height: 100vh; 
+}
+
+.quiltNewLogo8dc214cbfb2f936Parent{ 
+  display: flex;
+  justify-content: flex-end;
+  height: 66px;
+}
+.profileEthCard{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border: 0;
+  padding: 10px;
+  background-color: transparent; 
+height: 67px;
+width: 200px;
+opacity: 0;
+transition: 0.45s ease; 
+}
+
+.profileEthCard.animate {
+  animation: 1s ease 0s 1 normal forwards slide-in-top;
+}
+
+.profileEthCard:hover{ 
+ box-shadow: 1px 2px 4px 2px #46c76d;
+border-radius: 5px;  
+}
+.friendListContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  border: 1px solid #303036; 
+  border-bottom: 0;
+  border-left: 0;
+  height: 100%;;
+}
+.sunnndayyyParent{
+  margin-left: 10px; 
+}
+
+.xf4844ab5b4fc{
+  font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 22px; 
+color: #7F7F7F;
+}
+.threedots{
+  cursor: pointer
+}
+
+.gmSundayyyWrapper,.gmPickleWrapper{
+  padding: 10px 7px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin: 4px 0;
+  
+}
+.gmSundayyyWrapper{
+  background: #00E467;
+}
+
+.gmPickleWrapper{
+  background: #23252E; 
+}
+
+.frameFormInput{
+  background-color: transparent;
+  width: 90%; 
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: 'Inter';
+}
+.rightButtonsContainer{ 
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
 }

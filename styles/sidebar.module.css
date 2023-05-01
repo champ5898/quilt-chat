@@ -59,6 +59,8 @@
   animation: 1s ease 0s infinite normal none shadow-pop-tr;
   opacity: 1;
 }
+
+
 .rimessage3LineIcon {
   position: relative;
   width: 20px;
@@ -86,6 +88,7 @@
   justify-content: flex-start;
   gap: var(--gap-6xs);
 }
+
 .vectorIcon {
   position: relative;
   width: 20px;
@@ -180,7 +183,7 @@
   padding: var(--padding-3xs) 0;
   box-sizing: border-box;
   justify-content: flex-start;
-  gap: var(--gap-21xl);
+  gap: var(--gap-21xl); 
 }
 @media screen and (max-width: 960px) {
   .communicationCommentParent {
@@ -204,4 +207,95 @@
     padding: 0;
     box-sizing: border-box;
   }
+}
+
+/* NEW STYLES */
+.sidebarParent{ 
+  width:267px; 
+  height: 100vh; 
+  padding: 0 40px;
+  border-right: 1px solid #303036;
+}
+.sidebarParentGroup{ 
+  width:100%; 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  
+}
+.logoTextContainer{ 
+  margin-bottom: 26px; 
+    cursor: pointer;
+    border: 0; 
+    background-color: transparent; 
+  }
+.logoText{ 
+font-family: 'Inter';
+font-style: normal;
+font-weight: bold;
+font-size: 36px; 
+color: #fff
+}
+
+.communicationCommentParent,
+.rimessage3LineParent,
+.vectorGroup,
+.vectorParent {
+  border: 0;
+  transition: 0.45s ease;
+  height: 53px;
+  padding: 13px 12px; 
+  border-radius: 8px;
+  margin: 8px 0;
+}
+.communicationCommentParent h1,
+.rimessage3LineParent h1,
+.vectorGroup h1,
+.vectorParent h1{
+ font-size: 18px;
+ color: #fff;
+ padding-left: 14px;
+}
+
+.communicationCommentParent div,
+.rimessage3LineParent div,
+.vectorGroup div,
+.vectorParent div{
+ font-size: 18px;
+ color: #8B98AC;
+ padding-left: 14px; 
+}
+ 
+
+.communicationCommentParent{
+ background: #181B21;
+ color: #fff;
+}
+
+.lineParent{
+  border-top: 1px solid #303036;
+  padding: 20px 0;
+  margin-top: 20px;
+}
+
+
+.iconsaxlinearsetting3Parent,
+.rimoonClearLineParent  {
+  border: 0;
+  transition: 0.45s ease;
+  height: 53px;
+  padding: 13px 12px; 
+  border-radius: 8px;
+  margin: 8px 0;
+}
+ 
+
+.iconsaxlinearsetting3Parent div,
+.rimoonClearLineParent div {
+ font-size: 18px;
+ color: #8B98AC;
+ padding-left: 14px; 
+}
+ 
+.quiltNewLogo8dc214cbfb2f936Icon{
+  margin-top: 20px;
 }
