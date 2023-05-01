@@ -7,11 +7,19 @@ import globe from "../img/globe.png";
 import profile from "../img/profile.png";
 import toggle from "../img/setting.png";
 import moon from "../img/moon.png";
-
+import logo from "../img/logo.svg";
 const Sidebar = () => {
   return (
-    <div className={styles.frameParent}>
-      <section className={styles.frameGroup}>
+    <div className={styles.sidebarParent}>
+      <section className={styles.sidebarParentGroup}>
+        <button className={styles.logoTextContainer}>
+          {/* <Image
+          className={styles.quiltNewLogo8dc214cbfb2f936Icon}
+          alt=""
+          src={logo}
+        /> */}
+          <p className={styles.logoText}>Quilt</p>
+        </button>
         <button className={styles.communicationCommentParent}>
           <Image className={styles.communicationComment} alt="" src={chat} />
           <h1 className={styles.chat}>Chat</h1>
