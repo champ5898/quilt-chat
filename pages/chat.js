@@ -14,12 +14,16 @@ import user3 from "../img/user3.png";
 import arrow from "../img/arrow.png";
 import ethicon from "../img/eth-icon.svg";
 import threedots from "../img/three-dots.svg";
+import { useRouter } from "next/router";
 
 const Chat = () => {
   const address = userData((state) => state.address);
   const network = userData((state) => state.network);
   const Username = userData((state) => state.username);
+  const avatar = userData((state) => state.avatar);
   const setUsername = userData((state) => state.setUsername);
+  const logout = userData((state) => state.logout);
+  const router = useRouter();
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -55,7 +59,14 @@ const Chat = () => {
       <Sidebar />
       <div className={styles.chatRightContainer}>
         <div className={styles.quiltNewLogo8dc214cbfb2f936Parent}>
-          <button className={styles.profileEthCard} data-animate-on-scroll>
+          <button
+            className={styles.profileEthCard}
+            data-animate-on-scroll
+            onClick={() => {
+              logout();
+              router.push("/");
+            }}
+          >
             <div className={styles.x4c99923bdParent}>
               <div className={styles.x4c99923bd}>{address}</div>
               <div className={styles.ethereum}>{network}</div>
@@ -103,7 +114,13 @@ const Chat = () => {
               </div>
               <div className={styles.frameParent1}>
                 <form className={styles.frameForm}>
-                  <Image className={styles.ellipseIcon} alt="" src={user1} />
+                  <Image
+                    className={styles.ellipseIcon}
+                    alt=""
+                    src={avatar}
+                    width={5}
+                    height={5}
+                  />
                   <input type="text" className={styles.frameFormInput} />
                   <button className={styles.iconsaxlinearsend}>
                     <Image className={styles.vectorIcon1} alt="" src={send} />

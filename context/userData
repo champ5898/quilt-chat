@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-const img =
+export const img =
   "https://ipfs.io/ipfs/bafybeif7kurkknls2nd2mmq6l5wq76wraqn2mfjotsienwa5q2ndypgd6u/ava.png";
 
 export const userData = create((set) => ({
