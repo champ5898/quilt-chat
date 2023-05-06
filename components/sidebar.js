@@ -8,7 +8,11 @@ import profile from "../img/profile.png";
 import toggle from "../img/setting.png";
 import moon from "../img/moon.png";
 import logo from "../img/logo.svg";
+
+import { userData } from "../context/userData";
 const Sidebar = () => {
+
+  const chatState = userData((state) => state.currentChatState)
   return (
     <div className={styles.sidebarParent}>
       <section className={styles.sidebarParentGroup}>
@@ -20,15 +24,15 @@ const Sidebar = () => {
         />
           {/* <p className={styles.logoText}>Quilt</p> */}
         </button>
-        <button className={styles.communicationCommentParent}>
-          <Image className={styles.communicationComment} alt="" src={chat} />
+        <button className={chatState === "SHOW_PENDING_REQUEST" ? styles.vectorParent : styles.communicationCommentParent}>
+          <Image className={  styles.communicationComment} alt="" src={chat} />
           <h1 className={styles.chat}>Chat</h1>
         </button>
         <button className={styles.rimessage3LineParent}>
           <Image className={styles.rimessage3LineIcon} alt="" src={community} />
           <div className={styles.community}>Community</div>
         </button>
-        <button className={styles.vectorParent}>
+        <button className={chatState === "SHOW_PENDING_REQUEST" ? styles.communicationCommentParent : styles.vectorParent}>
           <Image className={styles.vectorIcon} alt="" src={friend} />
           <div className={styles.community}>Friends</div>
         </button>

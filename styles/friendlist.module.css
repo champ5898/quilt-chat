@@ -14,12 +14,14 @@
   background-color: var(--color-darkslategray-200);
   border-radius: var(--br-9xs);
   /* width: 172px; */
+  color: #fff;
   width: 90%;
   border-radius: 8px;
   height: 42px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  outline: none;
   /* padding: 0 var(--padding-3xs); */
   box-sizing: border-box;
   align-items: flex-start;

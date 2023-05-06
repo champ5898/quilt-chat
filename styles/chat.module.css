@@ -227,8 +227,19 @@
   /* width: 707px; */
   width: 100%;
   align-items: flex-start;
-  justify-content: center;
-  
+  justify-content: flex-start; 
+  height: 85%;
+  max-height: 768px;
+  overflow: auto;
+  padding-right: 10px;
+}
+.frameDiv::-webkit-scrollbar{
+  background-color: #23252E;
+}
+ 
+.frameDiv::-webkit-scrollbar-thumb{
+  border-radius: 12px;
+  background-color: #46b671; 
 }
 .ellipseIcon {
   position: relative;
@@ -353,7 +364,7 @@
   font-size: var(--font-size-xs);
   color: var(--color-white);
   font-family: var(--font-inter); 
-  padding: 28px;
+  padding: 28px; 
 }
 .chat,
 .frameContainer,
@@ -388,8 +399,9 @@
   position: relative;
   background-color: var(--color-gray-400);
   width: 100%;  
+  height: 100%;
   /* height: 933px; */
-  /* overflow: hidden; */
+  overflow: auto;
   flex-direction: row;
   /* padding: 20px; */
   text-align: center;
