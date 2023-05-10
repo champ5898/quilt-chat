@@ -22,20 +22,22 @@ const Phrase = () => {
   const network = userData((state) => state.network);
   const Username = userData((state) => state.username);
   const setUsername = userData((state) => state.setUsername);
+  const setAvatar = userData((state) => state.setAvatar);
   const setFriends = userData((state) => state.setFriends);
 
   const { loading, error, data } = useQuery(GET_PROFILE_BYADDRESS, {
     variables: { address: address },
     pollInterval: 1000,
   });
-  const updateData = () => {
+  const updateData = async () => {
     try {
-      const name = data.getProfileByAddress.username;
-      const friends = data.getProfileByAddress.friends;
+      const name = await data.getProfileByAddress.username;
+      const friends = await data.getProfileByAddress.friends;
+      const avatar = await data.getProfileByAddress.avatar;
       setFriends(friends);
       setUsername(name);
-
-      console.log(loading, data, error);
+      setAvatar(avatar);
+      // console.log(loading, data, error);
     } catch (err) {
       console.log(err);
       // console.log(loading, data, error);

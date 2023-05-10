@@ -309,7 +309,7 @@
 }
 .iconsaxlinearmicrophone2:hover,
 .vectorWrapper:hover {
-  animation: 1s ease 0s infinite normal none rotate-center;
+  /* animation: 1s ease 0s infinite normal none rotate-center; */
   opacity: 1;
 }
 .vectorIcon3,

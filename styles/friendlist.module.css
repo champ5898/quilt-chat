@@ -123,7 +123,7 @@
 }
 @media screen and (max-width: 1200px) {
   .ellipseParent:hover {
-    animation: 1s ease 0s normal none shadow-inset-center;
+    /* animation: 1s ease 0s normal none shadow-inset-center; */
     opacity: 1;
   }
   @keyframes shadow-inset-center {

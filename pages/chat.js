@@ -14,19 +14,23 @@ import user2 from "../img/user2.png";
 import user3 from "../img/user3.png";
 import arrow from "../img/arrow.png";
 import ethicon from "../img/eth-icon.svg";
-import threedots from "../img/three-dots.svg";
+import threedots from "../img/three-dots.svg"; 
 import PendingRequest from "@/components/pendingrequest";
-import { CHAT_PAGE_CONTROLS } from "../constants/chat";
+import { CHAT_PAGE_CONTROLS } from "../constants/chat"; 
+import { useRouter } from "next/router"; 
 
 const Chat = () => {
   const address = userData((state) => state.address);
   const network = userData((state) => state.network);
   const Username = userData((state) => state.username);
-  const setUsername = userData((state) => state.setUsername);
+  const avatar = userData((state) => state.avatar);
+  const setUsername = userData((state) => state.setUsername); 
   // const chatState = userData((state) => state.currentChatState);
   // const setCurentChatStateToPendingReq =  userData((state) => state.setCurentChatState(CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST))
   
-  const [chatState, setChatState] = useState(CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG)
+  const [chatState, setChatState] = useState(CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG) 
+  const logout = userData((state) => state.logout);
+  const router = useRouter(); 
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -71,7 +75,14 @@ const Chat = () => {
       <Sidebar />
       <div className={styles.chatRightContainer}>
         <div className={styles.quiltNewLogo8dc214cbfb2f936Parent}>
-          <button className={styles.profileEthCard} data-animate-on-scroll>
+          <button
+            className={styles.profileEthCard}
+            data-animate-on-scroll
+            onClick={() => {
+              logout();
+              router.push("/");
+            }}
+          >
             <div className={styles.x4c99923bdParent}>
               <div className={styles.x4c99923bd}>{address}</div>
               <div className={styles.ethereum}>{network}</div>
@@ -219,7 +230,7 @@ const Chat = () => {
                       </h3>
                     </div>
                   </div>
-                </div>
+                </div> 
                 <div className={styles.frameParent1}>
                   <form className={styles.frameForm}>
                     <Image className={styles.ellipseIcon} alt="" src={user1} />
@@ -240,6 +251,34 @@ const Chat = () => {
                       />
                     </button>
                   </div>
+{/* ======= */}
+              </div>
+              <div className={styles.frameParent1}>
+                <form className={styles.frameForm}>
+                  <Image
+                    className={styles.ellipseIcon}
+                    alt=""
+                    src={avatar}
+                    width={5}
+                    height={5}
+                  />
+                  <input type="text" className={styles.frameFormInput} />
+                  <button className={styles.iconsaxlinearsend}>
+                    <Image className={styles.vectorIcon1} alt="" src={send} />
+                  </button>
+                </form>
+                <div className={styles.rightButtonsContainer}>
+                  <button className={styles.vectorWrapper}>
+                    <Image className={styles.vectorIcon2} alt="" src={file} />
+                  </button>
+                  <button className={styles.iconsaxlinearmicrophone2}>
+                    <Image
+                      // className={styles.vectorIcon3}
+                      alt=""
+                      src={microphone}
+                    />
+                  </button> 
+                </div>
                 </div>
               </section>
             </div>
