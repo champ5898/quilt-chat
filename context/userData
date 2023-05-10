@@ -1,6 +1,6 @@
 import { create } from "zustand";
-
-export const img =
+import {CHAT_PAGE_CONTROLS} from "../constants/chat"
+const img =
   "https://ipfs.io/ipfs/bafybeif7kurkknls2nd2mmq6l5wq76wraqn2mfjotsienwa5q2ndypgd6u/ava.png";
 
 export const userData = create((set) => ({
@@ -14,6 +14,8 @@ export const userData = create((set) => ({
   network: "none",
   token: "",
   friends: [],
+  currentChatState:CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG,
+  setCurentChatState: (currentChatState) => set({ currentChatState }),
   setToken: (token) => set({ token }),
   login: (address) => set({ address, isLogged: true }),
   setNetwork: (network) => set({ network }),
