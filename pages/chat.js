@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useMutation } from "@apollo/client";
 import { userData } from "../context/userData";
 import Friendlist from "../components/friendlist";
 import Sidebar from "../components/sidebar";
@@ -14,23 +15,27 @@ import user2 from "../img/user2.png";
 import user3 from "../img/user3.png";
 import arrow from "../img/arrow.png";
 import ethicon from "../img/eth-icon.svg";
-import threedots from "../img/three-dots.svg"; 
+import threedots from "../img/three-dots.svg";
 import PendingRequest from "@/components/pendingrequest";
-import { CHAT_PAGE_CONTROLS } from "../constants/chat"; 
-import { useRouter } from "next/router"; 
+import { CHAT_PAGE_CONTROLS } from "../constants/chat";
+import { useRouter } from "next/router";
+import { ADD_FRIEND } from "@/graphql/queries";
 
 const Chat = () => {
   const address = userData((state) => state.address);
   const network = userData((state) => state.network);
   const Username = userData((state) => state.username);
   const avatar = userData((state) => state.avatar);
-  const setUsername = userData((state) => state.setUsername); 
+  const setUsername = userData((state) => state.setUsername);
   // const chatState = userData((state) => state.currentChatState);
   // const setCurentChatStateToPendingReq =  userData((state) => state.setCurentChatState(CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST))
-  
-  const [chatState, setChatState] = useState(CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG) 
+
+  const [chatState, setChatState] = useState(
+    CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG
+  );
+  const [request, setRequest] = useState("");
   const logout = userData((state) => state.logout);
-  const router = useRouter(); 
+  const router = useRouter();
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -63,13 +68,26 @@ const Chat = () => {
 
   const switchChatStateToPendingFriend = () => {
     // setCurentChatStateToPendingReq()
-    setChatState(CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST)
-  }
+    setChatState(CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST);
+  };
   const switchChatStateToFriendList = () => {
     // setCurentChatStateToPendingReq()
-    setChatState(CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST)
-  }
-  
+    setChatState(CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST);
+  };
+  const [addFriend, { data, loading, error }] = useMutation(ADD_FRIEND, {
+    onCompleted: (data) => {
+      alert("Request sent!");
+      switchChatStateToFriendList();
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+  const sendRequest = () => {
+    addFriend({ variables: { address: request } });
+  };
+
   return (
     <div className={styles.chat}>
       <Sidebar />
@@ -98,17 +116,19 @@ const Chat = () => {
 
           <Friendlist chatState={chatState} />
           {chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
-          <div className={pendingStyles.padlockMainContainer}>
-          <div className={pendingStyles.frameContainerPadlock}>
-              <div className={pendingStyles.framePadlockDiv}>
-                <Image className={styles.padlock} alt="" src={padlock} />
-                <p>
-                  Messages are not encrypted till the user accepts the chat
-                  request
-                </p>
+            <div className={pendingStyles.padlockMainContainer}>
+              <div className={pendingStyles.frameContainerPadlock}>
+                <div className={pendingStyles.framePadlockDiv}>
+                  <Image className={styles.padlock} alt="" src={padlock} />
+                  <p>
+                    You can only send request to the user registered on this
+                    platform
+                  </p>
+                </div>
+                <button onClick={switchChatStateToPendingFriend}>
+                  + {""} Add Friend
+                </button>
               </div>
-              <button onClick={switchChatStateToPendingFriend}>+ {""} Add Friend</button>
-            </div>
             </div>
           )}
           {chatState === CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST && (
@@ -118,8 +138,20 @@ const Chat = () => {
                 You can add a friend with their wallet address
               </p>
               <div className={pendingStyles.sendRequestDiv}>
-                <input type="text" placeholder="Name, address, eth or ad" />
-                <button onClick={switchChatStateToFriendList}>Send friend request</button>
+                <input
+                  type="text"
+                  onChange={(e) => {
+                    setRequest(e.target.value);
+                  }}
+                  placeholder="Name, address, eth or ad"
+                />
+                <button
+                  onClick={() => {
+                    sendRequest();
+                  }}
+                >
+                  Send friend request
+                </button>
               </div>
             </div>
           )}
@@ -230,7 +262,7 @@ const Chat = () => {
                       </h3>
                     </div>
                   </div>
-                </div> 
+                </div>
                 <div className={styles.frameParent1}>
                   <form className={styles.frameForm}>
                     <Image className={styles.ellipseIcon} alt="" src={user1} />
@@ -251,34 +283,34 @@ const Chat = () => {
                       />
                     </button>
                   </div>
-{/* ======= */}
-              </div>
-              <div className={styles.frameParent1}>
-                <form className={styles.frameForm}>
-                  <Image
-                    className={styles.ellipseIcon}
-                    alt=""
-                    src={avatar}
-                    width={5}
-                    height={5}
-                  />
-                  <input type="text" className={styles.frameFormInput} />
-                  <button className={styles.iconsaxlinearsend}>
-                    <Image className={styles.vectorIcon1} alt="" src={send} />
-                  </button>
-                </form>
-                <div className={styles.rightButtonsContainer}>
-                  <button className={styles.vectorWrapper}>
-                    <Image className={styles.vectorIcon2} alt="" src={file} />
-                  </button>
-                  <button className={styles.iconsaxlinearmicrophone2}>
-                    <Image
-                      // className={styles.vectorIcon3}
-                      alt=""
-                      src={microphone}
-                    />
-                  </button> 
+                  {/* ======= */}
                 </div>
+                <div className={styles.frameParent1}>
+                  <form className={styles.frameForm}>
+                    <Image
+                      className={styles.ellipseIcon}
+                      alt=""
+                      src={avatar}
+                      width={5}
+                      height={5}
+                    />
+                    <input type="text" className={styles.frameFormInput} />
+                    <button className={styles.iconsaxlinearsend}>
+                      <Image className={styles.vectorIcon1} alt="" src={send} />
+                    </button>
+                  </form>
+                  <div className={styles.rightButtonsContainer}>
+                    <button className={styles.vectorWrapper}>
+                      <Image className={styles.vectorIcon2} alt="" src={file} />
+                    </button>
+                    <button className={styles.iconsaxlinearmicrophone2}>
+                      <Image
+                        // className={styles.vectorIcon3}
+                        alt=""
+                        src={microphone}
+                      />
+                    </button>
+                  </div>
                 </div>
               </section>
             </div>

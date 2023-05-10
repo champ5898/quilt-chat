@@ -89,3 +89,11 @@ export const GET_P2P_MESSAGEFEED = gql`
     }
   }
 `;
+
+export const ADD_FRIEND = gql`
+  mutation ($address: String!) {
+    addFriend(address: $address) {
+      friends
+    }
+  }
+`;
