@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
+import { useMutation } from "@apollo/client";
 import { userData } from "../context/userData";
 import Friendlist from "../components/friendlist";
 import Sidebar from "../components/sidebar";
@@ -19,6 +20,7 @@ import PendingRequest from "@/components/pendingrequest";
 import ChatProfileCard from "../fragments/ChatProfileCard";
 import { CHAT_PAGE_CONTROLS } from "../constants/chat";
 import { useRouter } from "next/router";
+import { ADD_FRIEND } from "@/graphql/queries";
 
 const Chat = () => {
   const address = userData((state) => state.address);
@@ -33,10 +35,11 @@ const Chat = () => {
     CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG
   );
   const [showDropdown, setShowDropdown] = useState(false);
-  const logout = userData((state) => state.logout);
-  const router = useRouter();
 
   const pageRef = useRef();
+  const [request, setRequest] = useState("");
+  const logout = userData((state) => state.logout);
+  const router = useRouter();
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -112,6 +115,19 @@ const Chat = () => {
     // setCurentChatStateToPendingReq()
     setChatState(CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST);
   };
+  const [addFriend, { data, loading, error }] = useMutation(ADD_FRIEND, {
+    onCompleted: (data) => {
+      alert("Request sent!");
+      switchChatStateToFriendList();
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+  const sendRequest = () => {
+    addFriend({ variables: { address: request } });
+  };
 
   return (
     <div className={styles.chat} ref={pageRef}>
@@ -146,8 +162,8 @@ const Chat = () => {
                 <div className={pendingStyles.framePadlockDiv}>
                   <Image className={styles.padlock} alt="" src={padlock} />
                   <p>
-                    Messages are not encrypted till the user accepts the chat
-                    request
+                    You can only send request to the user registered on this
+                    platform
                   </p>
                 </div>
                 <button onClick={switchChatStateToPendingFriend}>
@@ -163,8 +179,18 @@ const Chat = () => {
                 You can add a friend with their wallet address
               </p>
               <div className={pendingStyles.sendRequestDiv}>
-                <input type="text" placeholder="Name, address, eth or ad" />
-                <button onClick={switchChatStateToFriendList}>
+                <input
+                  type="text"
+                  onChange={(e) => {
+                    setRequest(e.target.value);
+                  }}
+                  placeholder="Name, address, eth or ad"
+                />
+                <button
+                  onClick={() => {
+                    sendRequest();
+                  }}
+                >
                   Send friend request
                 </button>
               </div>
@@ -330,13 +356,37 @@ const Chat = () => {
                     <Image className={styles.vectorIcon2} alt="" src={file} />
                   </button>
                   <button className={styles.iconsaxlinearmicrophone2}>
+=======
+                <div className={styles.frameParent1}>
+                  <form className={styles.frameForm}>
+>>>>>>> 6938ae2b0979dda0f14378727227773890849cd8
                     <Image
-                      // className={styles.vectorIcon3}
+                      className={styles.ellipseIcon}
                       alt=""
-                      src={microphone}
+                      src={avatar}
+                      width={5}
+                      height={5}
                     />
                   </button> 
                 </div>
+                </div> */}
+                    {/* <input type="text" className={styles.frameFormInput} />
+                    <button className={styles.iconsaxlinearsend}>
+                      <Image className={styles.vectorIcon1} alt="" src={send} />
+                    </button>
+                  </form> */}
+                  {/* <div className={styles.rightButtonsContainer}>
+                    <button className={styles.vectorWrapper}>
+                      <Image className={styles.vectorIcon2} alt="" src={file} />
+                    </button>
+                    <button className={styles.iconsaxlinearmicrophone2}>
+                      <Image
+                        // className={styles.vectorIcon3}
+                        alt=""
+                        src={microphone}
+                      />
+                    </button>
+                  </div>
                 </div> */}
               </section>
             </div>
