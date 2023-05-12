@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { userData } from "../context/userData";
 import Friendlist from "../components/friendlist";
@@ -14,23 +14,29 @@ import user2 from "../img/user2.png";
 import user3 from "../img/user3.png";
 import arrow from "../img/arrow.png";
 import ethicon from "../img/eth-icon.svg";
-import threedots from "../img/three-dots.svg"; 
+import threedots from "../img/three-dots.svg";
 import PendingRequest from "@/components/pendingrequest";
-import { CHAT_PAGE_CONTROLS } from "../constants/chat"; 
-import { useRouter } from "next/router"; 
+import ChatProfileCard from "../fragments/ChatProfileCard";
+import { CHAT_PAGE_CONTROLS } from "../constants/chat";
+import { useRouter } from "next/router";
 
 const Chat = () => {
   const address = userData((state) => state.address);
   const network = userData((state) => state.network);
   const Username = userData((state) => state.username);
   const avatar = userData((state) => state.avatar);
-  const setUsername = userData((state) => state.setUsername); 
+  const setUsername = userData((state) => state.setUsername);
   // const chatState = userData((state) => state.currentChatState);
   // const setCurentChatStateToPendingReq =  userData((state) => state.setCurentChatState(CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST))
-  
-  const [chatState, setChatState] = useState(CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG) 
+
+  const [chatState, setChatState] = useState(
+    CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG
+  );
+  const [showDropdown, setShowDropdown] = useState(false);
   const logout = userData((state) => state.logout);
-  const router = useRouter(); 
+  const router = useRouter();
+
+  const pageRef = useRef();
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -61,17 +67,54 @@ const Chat = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const ref = pageRef.current;
+
+    if (ref) {
+      ref.addEventListener("click", (e) => {
+        if (e.target.classList === undefined) {
+          console.log('undefined true true')
+          return;
+        } else if (
+          !e.target.classList.contains("chat_dropdownHeader__epkvx") &&
+          !e.target.classList.contains("chat_ellipseParentDropdown___Tc0S") &&
+          !e.target.classList.contains("chat_dropdownRenameRight__UMW5t") &&
+          !e.target.classList.contains("chat_sunnndayyy__YoMnd") &&
+          !e.target.classList.contains("") &&
+          !e.target.classList.contains(
+            "chat_dropdownPaymentDivContainer__G7ozf"
+          ) &&
+          !e.target.classList.contains("hat_frameChild__3Ny_b") &&
+          !e.target.classList.contains("chat_sunnndayyyParent__d1sOy") &&
+          !e.target.classList.contains("chat_chatDropdownMain__ThZR") &&
+          !e.target.classList.contains(
+            "chat_dropdownPaymentDivContainer__G7ozf"
+          ) &&
+          !e.target.classList.contains("chat_frameChildSmall__DZgXa")
+        ) {
+          if (e.target.classList.length == 0){
+            return
+          } else {
+                      setShowDropdown(false);
+          console.log(e.target.classList);
+          }
+
+        }
+      });
+    }
+  });
+
   const switchChatStateToPendingFriend = () => {
     // setCurentChatStateToPendingReq()
-    setChatState(CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST)
-  }
+    setChatState(CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST);
+  };
   const switchChatStateToFriendList = () => {
     // setCurentChatStateToPendingReq()
-    setChatState(CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST)
-  }
-  
+    setChatState(CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST);
+  };
+
   return (
-    <div className={styles.chat}>
+    <div className={styles.chat} ref={pageRef}>
       <Sidebar />
       <div className={styles.chatRightContainer}>
         <div className={styles.quiltNewLogo8dc214cbfb2f936Parent}>
@@ -98,17 +141,19 @@ const Chat = () => {
 
           <Friendlist chatState={chatState} />
           {chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
-          <div className={pendingStyles.padlockMainContainer}>
-          <div className={pendingStyles.frameContainerPadlock}>
-              <div className={pendingStyles.framePadlockDiv}>
-                <Image className={styles.padlock} alt="" src={padlock} />
-                <p>
-                  Messages are not encrypted till the user accepts the chat
-                  request
-                </p>
+            <div className={pendingStyles.padlockMainContainer}>
+              <div className={pendingStyles.frameContainerPadlock}>
+                <div className={pendingStyles.framePadlockDiv}>
+                  <Image className={styles.padlock} alt="" src={padlock} />
+                  <p>
+                    Messages are not encrypted till the user accepts the chat
+                    request
+                  </p>
+                </div>
+                <button onClick={switchChatStateToPendingFriend}>
+                  + {""} Add Friend
+                </button>
               </div>
-              <button onClick={switchChatStateToPendingFriend}>+ {""} Add Friend</button>
-            </div>
             </div>
           )}
           {chatState === CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST && (
@@ -119,7 +164,9 @@ const Chat = () => {
               </p>
               <div className={pendingStyles.sendRequestDiv}>
                 <input type="text" placeholder="Name, address, eth or ad" />
-                <button onClick={switchChatStateToFriendList}>Send friend request</button>
+                <button onClick={switchChatStateToFriendList}>
+                  Send friend request
+                </button>
               </div>
             </div>
           )}
@@ -136,7 +183,18 @@ const Chat = () => {
                     </div>
                   </div>
                 </div>
-                <Image className={styles.threedots} alt="" src={threedots} />
+                <div className={styles.dropdownContainer}>
+                  <Image
+                    className={styles.threedots}
+                    alt=""
+                    src={threedots}
+                    onClick={() => setShowDropdown(true)}
+                  />
+
+                  {showDropdown && (
+                    <ChatProfileCard setShowDropdown={setShowDropdown} />
+                  )}
+                </div>
               </div>
               <section className={styles.frameSection}>
                 <div className={styles.frameDiv}>
@@ -230,7 +288,7 @@ const Chat = () => {
                       </h3>
                     </div>
                   </div>
-                </div> 
+                </div>
                 <div className={styles.frameParent1}>
                   <form className={styles.frameForm}>
                     <Image className={styles.ellipseIcon} alt="" src={user1} />
@@ -251,9 +309,9 @@ const Chat = () => {
                       />
                     </button>
                   </div>
-{/* ======= */}
-              </div>
-              <div className={styles.frameParent1}>
+                  {/* ======= */}
+                </div>
+                {/* <div className={styles.frameParent1}>
                 <form className={styles.frameForm}>
                   <Image
                     className={styles.ellipseIcon}
@@ -279,7 +337,7 @@ const Chat = () => {
                     />
                   </button> 
                 </div>
-                </div>
+                </div> */}
               </section>
             </div>
           )}
