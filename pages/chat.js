@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { useMutation } from "@apollo/client";
 import { userData } from "../context/userData";
@@ -17,6 +17,7 @@ import arrow from "../img/arrow.png";
 import ethicon from "../img/eth-icon.svg";
 import threedots from "../img/three-dots.svg";
 import PendingRequest from "@/components/pendingrequest";
+import ChatProfileCard from "../fragments/ChatProfileCard";
 import { CHAT_PAGE_CONTROLS } from "../constants/chat";
 import { useRouter } from "next/router";
 import { ADD_FRIEND } from "@/graphql/queries";
@@ -33,6 +34,9 @@ const Chat = () => {
   const [chatState, setChatState] = useState(
     CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG
   );
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const pageRef = useRef();
   const [request, setRequest] = useState("");
   const logout = userData((state) => state.logout);
   const router = useRouter();
@@ -66,6 +70,43 @@ const Chat = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const ref = pageRef.current;
+
+    if (ref) {
+      ref.addEventListener("click", (e) => {
+        if (e.target.classList === undefined) {
+          console.log('undefined true true')
+          return;
+        } else if (
+          !e.target.classList.contains("chat_dropdownHeader__epkvx") &&
+          !e.target.classList.contains("chat_ellipseParentDropdown___Tc0S") &&
+          !e.target.classList.contains("chat_dropdownRenameRight__UMW5t") &&
+          !e.target.classList.contains("chat_sunnndayyy__YoMnd") &&
+          !e.target.classList.contains("") &&
+          !e.target.classList.contains(
+            "chat_dropdownPaymentDivContainer__G7ozf"
+          ) &&
+          !e.target.classList.contains("hat_frameChild__3Ny_b") &&
+          !e.target.classList.contains("chat_sunnndayyyParent__d1sOy") &&
+          !e.target.classList.contains("chat_chatDropdownMain__ThZR") &&
+          !e.target.classList.contains(
+            "chat_dropdownPaymentDivContainer__G7ozf"
+          ) &&
+          !e.target.classList.contains("chat_frameChildSmall__DZgXa")
+        ) {
+          if (e.target.classList.length == 0){
+            return
+          } else {
+                      setShowDropdown(false);
+          console.log(e.target.classList);
+          }
+
+        }
+      });
+    }
+  });
+
   const switchChatStateToPendingFriend = () => {
     // setCurentChatStateToPendingReq()
     setChatState(CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST);
@@ -89,7 +130,7 @@ const Chat = () => {
   };
 
   return (
-    <div className={styles.chat}>
+    <div className={styles.chat} ref={pageRef}>
       <Sidebar />
       <div className={styles.chatRightContainer}>
         <div className={styles.quiltNewLogo8dc214cbfb2f936Parent}>
@@ -168,7 +209,18 @@ const Chat = () => {
                     </div>
                   </div>
                 </div>
-                <Image className={styles.threedots} alt="" src={threedots} />
+                <div className={styles.dropdownContainer}>
+                  <Image
+                    className={styles.threedots}
+                    alt=""
+                    src={threedots}
+                    onClick={() => setShowDropdown(true)}
+                  />
+
+                  {showDropdown && (
+                    <ChatProfileCard setShowDropdown={setShowDropdown} />
+                  )}
+                </div>
               </div>
               <section className={styles.frameSection}>
                 <div className={styles.frameDiv}>
@@ -285,8 +337,29 @@ const Chat = () => {
                   </div>
                   {/* ======= */}
                 </div>
+                {/* <div className={styles.frameParent1}>
+                <form className={styles.frameForm}>
+                  <Image
+                    className={styles.ellipseIcon}
+                    alt=""
+                    src={avatar}
+                    width={5}
+                    height={5}
+                  />
+                  <input type="text" className={styles.frameFormInput} />
+                  <button className={styles.iconsaxlinearsend}>
+                    <Image className={styles.vectorIcon1} alt="" src={send} />
+                  </button>
+                </form>
+                <div className={styles.rightButtonsContainer}>
+                  <button className={styles.vectorWrapper}>
+                    <Image className={styles.vectorIcon2} alt="" src={file} />
+                  </button>
+                  <button className={styles.iconsaxlinearmicrophone2}>
+=======
                 <div className={styles.frameParent1}>
                   <form className={styles.frameForm}>
+>>>>>>> 6938ae2b0979dda0f14378727227773890849cd8
                     <Image
                       className={styles.ellipseIcon}
                       alt=""
@@ -294,12 +367,15 @@ const Chat = () => {
                       width={5}
                       height={5}
                     />
-                    <input type="text" className={styles.frameFormInput} />
+                  </button> 
+                </div>
+                </div> */}
+                    {/* <input type="text" className={styles.frameFormInput} />
                     <button className={styles.iconsaxlinearsend}>
                       <Image className={styles.vectorIcon1} alt="" src={send} />
                     </button>
-                  </form>
-                  <div className={styles.rightButtonsContainer}>
+                  </form> */}
+                  {/* <div className={styles.rightButtonsContainer}>
                     <button className={styles.vectorWrapper}>
                       <Image className={styles.vectorIcon2} alt="" src={file} />
                     </button>
@@ -311,7 +387,7 @@ const Chat = () => {
                       />
                     </button>
                   </div>
-                </div>
+                </div> */}
               </section>
             </div>
           )}
