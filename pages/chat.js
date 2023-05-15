@@ -131,7 +131,7 @@ const Chat = () => {
 
   return (
     <div className={styles.chat} ref={pageRef}>
-      <Sidebar />
+      <Sidebar switchChatStateToFriendList={switchChatStateToFriendList}/>
       <div className={styles.chatRightContainer}>
         <div className={styles.quiltNewLogo8dc214cbfb2f936Parent}>
           <button

@@ -1,0 +1,95 @@
+.communitiesContainer{ 
+    height: 90%;
+    min-height: 600px;
+    max-height: 50%;
+    overflow: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    transition: 0.45s ease;
+}
+
+@media screen and (max-width: 1268px) {
+    .communitiesContainer{
+        flex-direction: column;
+    }
+}
+.frameCommunitiesWrapper{
+    display: flex;
+    flex-direction: column;
+ align-items: flex-start; 
+    padding: 47px;
+}
+.cardInfoDiv{
+     text-align: center;
+}
+.cardInfoDiv p {
+    font-family: 'Inter';
+font-style: normal;
+font-weight: bold;
+font-size: 14px;
+line-height: 15px; 
+color: #FFFFFF;
+}
+.cardInfoDiv .cardInfoP { 
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 10px;
+line-height: 12px;  
+color: #7F7F7F;
+}
+.communtyContainerCard{
+    max-width: 255px;
+max-height: 260px; 
+padding-top: 48px; 
+background: #18181B;
+border-radius: 10px;
+margin: 15px;
+}
+.communityPictureDiv{ 
+    position: relative; 
+    z-index: 90;
+}
+
+.communityCardLine{
+    border: 1px solid #303036; 
+    position: absolute;
+    top: 50%;
+    width: 100%;;
+    z-index: -1;
+}
+.communityUser{ 
+    z-index: -2;
+}
+
+.cardInfoButtonDiv{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+padding: 12px 20px;
+}
+
+.cardInfoButtonDiv button {
+     
+width: 78px;
+height: 28px; 
+
+background: #00E467;
+border-radius: 4px;
+font-family: 'Inter';
+font-style: normal;
+font-weight: bold;
+font-size: 12px;
+line-height: 15px;  
+color: #FFFFFF;
+border: 1px solid #303036;
+cursor: pointer;
+}
+
+.cardInfoButtonDiv button:nth-child(2) {
+      
+    background: none; 
+
+    }

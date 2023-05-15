@@ -9,30 +9,44 @@ import toggle from "../img/setting.png";
 import moon from "../img/moon.png";
 import logo from "../img/logo.svg";
 
-import { userData } from "../context/userData";
-const Sidebar = () => {
-
-  const chatState = userData((state) => state.currentChatState)
+import { useRouter } from "next/router";
+import { userData } from "../context/userData"; 
+const Sidebar = ({ switchChatStateToFriendList }) => {
+  const chatState = userData((state) => state.currentChatState);
+  const router = useRouter()
   return (
     <div className={styles.sidebarParent}>
       <section className={styles.sidebarParentGroup}>
         <button className={styles.logoTextContainer}>
           <Image
-          className={styles.quiltNewLogo8dc214cbfb2f936Icon}
-          alt=""
-          src={logo}
-        />
+            className={styles.quiltNewLogo8dc214cbfb2f936Icon}
+            alt=""
+            src={logo}
+          />
           {/* <p className={styles.logoText}>Quilt</p> */}
         </button>
-        <button className={chatState === "SHOW_PENDING_REQUEST" ? styles.vectorParent : styles.communicationCommentParent}>
-          <Image className={  styles.communicationComment} alt="" src={chat} />
+        <button
+          className={
+            chatState === "SHOW_PENDING_REQUEST"
+              ? styles.vectorParent
+              : styles.communicationCommentParent
+          }
+        >
+          <Image className={styles.communicationComment} alt="" src={chat} />
           <h1 className={styles.chat}>Chat</h1>
         </button>
-        <button className={styles.rimessage3LineParent}>
+        <button className={styles.rimessage3LineParent}  onClick={() => router.push('/community')}>
           <Image className={styles.rimessage3LineIcon} alt="" src={community} />
           <div className={styles.community}>Community</div>
         </button>
-        <button className={chatState === "SHOW_PENDING_REQUEST" ? styles.communicationCommentParent : styles.vectorParent}>
+        <button
+        onClick={() => switchChatStateToFriendList()}
+          className={
+            chatState === "SHOW_PENDING_REQUEST"
+              ? styles.communicationCommentParent
+              : styles.vectorParent
+          }
+        >
           <Image className={styles.vectorIcon} alt="" src={friend} />
           <div className={styles.community}>Friends</div>
         </button>
