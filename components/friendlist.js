@@ -34,7 +34,7 @@ let friendData = [];
           username: await data.getProfileByAddress.username,
           profilePic: (await data.getProfileByAddress.profilePicture) ?? img,
         };
-        // console.log(friend);
+        console.log("friendData");
         friendData.push(friend);
       } catch (error) {
         console.log(error);
