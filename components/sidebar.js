@@ -11,7 +11,7 @@ import logo from "../img/logo.svg";
 
 import { useRouter } from "next/router";
 import { userData } from "../context/userData"; 
-const Sidebar = ({ switchChatStateToFriendList }) => {
+const Sidebar = ({ switchChatStateToFriendList,switchChatStateToPendingFriend,switchToEncryptionMessage }) => {
   const chatState = userData((state) => state.currentChatState);
   const router = useRouter()
   return (
@@ -26,6 +26,7 @@ const Sidebar = ({ switchChatStateToFriendList }) => {
           {/* <p className={styles.logoText}>Quilt</p> */}
         </button>
         <button
+        onClick={() => router.push('/chat')}
           className={
             chatState === "SHOW_PENDING_REQUEST"
               ? styles.vectorParent
@@ -40,7 +41,7 @@ const Sidebar = ({ switchChatStateToFriendList }) => {
           <div className={styles.community}>Community</div>
         </button>
         <button
-        onClick={() => switchChatStateToFriendList()}
+ onClick={() => router.push('/friends')}
           className={
             chatState === "SHOW_PENDING_REQUEST"
               ? styles.communicationCommentParent

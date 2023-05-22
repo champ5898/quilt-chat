@@ -1,45 +1,50 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { useMutation } from "@apollo/client";
-import { userData } from "../context/userData";
-import Friendlist from "../components/friendlist";
-import Sidebar from "../components/sidebar";
-import styles from "../styles/chat.module.css";
-import pendingStyles from "../styles/pendingrequest.module.css";
-import padlock from "../img/padlock.svg";
-import send from "../img/send.png";
-import microphone from "../img/microphone.png";
-import file from "../img/file.png";
-import user1 from "../img/user1.png";
-import user2 from "../img/user2.png";
-import user3 from "../img/user3.png";
-import arrow from "../img/arrow.png";
-import ethicon from "../img/eth-icon.svg";
-import threedots from "../img/three-dots.svg";
+import { userData } from "../../../context/userData";
+import Friendlist from "../../../components/friendlist";
+import Sidebar from "../../../components/sidebar";
+import styles from "../../../styles/chat.module.css";
+import communityStyles from "../../../styles/community.module.css";
+import pendingStyles from "../../../styles/pendingrequest.module.css"; 
+import usercommunity from "../../../img/usercommunity.svg";
+import infocircle from "../../../img/infocircle.svg";
+import verify from "../../../img/verify.svg";
+import arrow from "../../../img/arrow.png";
+import padlock from "../../../img/padlock.svg";
+import send from "../../../img/send.png";
+import microphone from "../../../img/microphone.png";
+import file from "../../../img/file.png";
+import user1 from "../../../img/user1.png";
+import user2 from "../../../img/user2.png";
+import user3 from "../../../img/user3.png"; 
+import ethicon from "../../../img/eth-icon.svg";
+import threedots from "../../../img/three-dots.svg";
 import PendingRequest from "@/components/pendingrequest";
-import ChatProfileCard from "../fragments/ChatProfileCard";
-import { CHAT_PAGE_CONTROLS } from "../constants/chat";
+import {
+  CHAT_PAGE_CONTROLS,
+  ACTIVE_SIDEBAR_STATES,
+} from "../../../constants/chat";
 import { useRouter } from "next/router";
 import { ADD_FRIEND } from "@/graphql/queries";
 
 const Chat = () => {
   const address = userData((state) => state.address);
   const network = userData((state) => state.network);
-  const Username = userData((state) => state.username);
-  const avatar = userData((state) => state.avatar);
-  const setUsername = userData((state) => state.setUsername);
   // const chatState = userData((state) => state.currentChatState);
   // const setCurentChatStateToPendingReq =  userData((state) => state.setCurentChatState(CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST))
 
   const [chatState, setChatState] = useState(
-    CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG
+    CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST
   );
-  const [showDropdown, setShowDropdown] = useState(false);
-
+  const [communities, setCommunities] = useState([{}, {}, {}]);
+  const [showMembers, setShowMembers] = useState(false)
   const pageRef = useRef();
   const [request, setRequest] = useState("");
   const logout = userData((state) => state.logout);
   const router = useRouter();
+
+  console.log("communities,", communities);
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -76,7 +81,7 @@ const Chat = () => {
     if (ref) {
       ref.addEventListener("click", (e) => {
         if (e.target.classList === undefined) {
-          console.log('undefined true true')
+          console.log("undefined true true");
           return;
         } else if (
           !e.target.classList.contains("chat_dropdownHeader__epkvx") &&
@@ -95,13 +100,11 @@ const Chat = () => {
           ) &&
           !e.target.classList.contains("chat_frameChildSmall__DZgXa")
         ) {
-          if (e.target.classList.length == 0){
-            return
+          if (e.target.classList.length == 0) {
+            return;
           } else {
-                      setShowDropdown(false);
-          console.log(e.target.classList);
+            console.log(e.target.classList);
           }
-
         }
       });
     }
@@ -115,17 +118,6 @@ const Chat = () => {
     // setCurentChatStateToPendingReq()
     setChatState(CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST);
   };
-  const switchToEncryptionMessage = () => {
-    setChatState(CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG);
-  }
-
-  const shortenEthAddress = (address) => {  
-     if (!address)  return "Not Connected"; 
-        const firstStr = address.slice(0,4);
-    const lastStr = address.slice(address.length - 4, address.length)
-    return firstStr + "...." + lastStr || "";
-     
-  }
   const [addFriend, { data, loading, error }] = useMutation(ADD_FRIEND, {
     onCompleted: (data) => {
       alert("Request sent!");
@@ -140,9 +132,19 @@ const Chat = () => {
     addFriend({ variables: { address: request } });
   };
 
+  const shortenEthAddress = (address) => {  
+    if (!address)  return "Not Connected"; 
+       const firstStr = address.slice(0,4);
+   const lastStr = address.slice(address.length - 4, address.length)
+   return firstStr + "...." + lastStr || "";
+    
+ }
   return (
     <div className={styles.chat} ref={pageRef}>
-      <Sidebar switchChatStateToFriendList={switchChatStateToFriendList} switchToEncryptionMessage={switchToEncryptionMessage} switchChatStateToPendingFriend={switchChatStateToPendingFriend}/>
+      <Sidebar
+        switchChatStateToFriendList={switchChatStateToFriendList}
+        activeState={ACTIVE_SIDEBAR_STATES.COMMUNITY}
+      />
       <div className={styles.chatRightContainer}>
         <div className={styles.quiltNewLogo8dc214cbfb2f936Parent}>
           <button
@@ -154,7 +156,8 @@ const Chat = () => {
             }}
           >
             <div className={styles.x4c99923bdParent}>
-              <div className={styles.x4c99923bd}>{shortenEthAddress(address) || address}</div>
+            <div className={styles.x4c99923bd}>{shortenEthAddress(address) || address}</div>
+
               <div className={styles.ethereum}>{network}</div>
             </div>
             <Image className={styles.vectorIcon} alt="" src={arrow} />
@@ -162,54 +165,15 @@ const Chat = () => {
         </div>
 
         <div className={styles.friendListContainer}>
-          {chatState === CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST && (
-            <PendingRequest />
-          )}
-          { chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
-            <Friendlist chatState={chatState} placeholder={"Search ens or 0x41c...bd"} showCommunity={true} />
+         
 
-          )}
-          {chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
-            <div className={pendingStyles.padlockMainContainer}>
-              <div className={pendingStyles.frameContainerPadlock}>
-                <div className={pendingStyles.framePadlockDiv}>
-                  <Image className={styles.padlock} alt="" src={padlock} />
-                  <p>
-                    You can only send request to the user registered on this
-                    platform
-                  </p>
-                </div>
-                {/* <button onClick={() => router.push("/friends")}>
-                  + {""} Add Friend
-                </button> */}
-              </div>
-            </div>
-          )}
-          {chatState === CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST && (
-            <div className={pendingStyles.frameContainer}>
-              <h2>Add friends</h2>
-              <p className={pendingStyles.frameChildP}>
-                You can add a friend with their wallet address
-              </p>
-              <div className={pendingStyles.sendRequestDiv}>
-                <input
-                  type="text"
-                  onChange={(e) => {
-                    setRequest(e.target.value);
-                  }}
-                  placeholder="Name, address, eth or ad"
-                />
-                <button
-                  onClick={() => {
-                    sendRequest();
-                  }}
-                >
-                  Send friend request
-                </button>
-              </div>
-            </div>
-          )}
+          <Friendlist chatState={chatState} showCommunity={false} /> 
           {chatState === CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST && (
+            <>
+                <div>
+                    LEFT ANGLE
+                </div>
+            
             <div className={styles.frameContainer}>
               <div className={styles.frameWrapper}>
                 <div className={styles.ellipseParent}>
@@ -230,9 +194,9 @@ const Chat = () => {
                     onClick={() => setShowDropdown(true)}
                   />
 
-                  {showDropdown && (
+                  {/* {showDropdown && (
                     <ChatProfileCard setShowDropdown={setShowDropdown} />
-                  )}
+                  )} */}
                 </div>
               </div>
               <section className={styles.frameSection}>
@@ -403,6 +367,7 @@ const Chat = () => {
                 </div> */}
               </section>
             </div>
+            </>
           )}
         </div>
       </div>

@@ -1,95 +1,270 @@
-.communitiesContainer{ 
-    height: 90%;
-    min-height: 600px;
-    max-height: 50%;
-    overflow: auto;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: stretch;
-    transition: 0.45s ease;
+.communitiesContainer {
+  height: 90%;
+  min-height: 600px;
+  max-height: 50%;
+  overflow: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  transition: 0.45s ease;
 }
 
 @media screen and (max-width: 1268px) {
-    .communitiesContainer{
-        flex-direction: column;
-    }
-}
-.frameCommunitiesWrapper{
-    display: flex;
+  .communitiesContainer {
     flex-direction: column;
- align-items: flex-start; 
-    padding: 47px;
+  }
 }
-.cardInfoDiv{
-     text-align: center;
+.frameCommunitiesWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 47px;
+}
+.cardInfoDiv {
+  text-align: center;
 }
 .cardInfoDiv p {
-    font-family: 'Inter';
-font-style: normal;
-font-weight: bold;
-font-size: 14px;
-line-height: 15px; 
-color: #FFFFFF;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 15px;
+  color: #ffffff;
 }
-.cardInfoDiv .cardInfoP { 
-font-family: 'Inter';
-font-style: normal;
-font-weight: 600;
-font-size: 10px;
-line-height: 12px;  
-color: #7F7F7F;
+.cardInfoDiv .cardInfoP {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 12px;
+  color: #7f7f7f;
 }
-.communtyContainerCard{
-    max-width: 255px;
-max-height: 260px; 
-padding-top: 48px; 
-background: #18181B;
-border-radius: 10px;
-margin: 15px;
+.communtyContainerCard {
+  max-width: 255px;
+  max-height: 260px;
+  padding-top: 48px;
+  background: #18181b;
+  border-radius: 10px;
+  margin: 15px;
 }
-.communityPictureDiv{ 
-    position: relative; 
-    z-index: 90;
-}
-
-.communityCardLine{
-    border: 1px solid #303036; 
-    position: absolute;
-    top: 50%;
-    width: 100%;;
-    z-index: -1;
-}
-.communityUser{ 
-    z-index: -2;
+.communityPictureDiv {
+  position: relative;
+  z-index: 90;
 }
 
-.cardInfoButtonDiv{
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-padding: 12px 20px;
+.communityCardLine {
+  border: 1px solid #303036;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  z-index: -1;
+}
+.communityUser {
+  z-index: -2;
+}
+
+.cardInfoButtonDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 12px 20px;
 }
 
 .cardInfoButtonDiv button {
-     
-width: 78px;
-height: 28px; 
+  width: 78px;
+  height: 28px;
 
-background: #00E467;
-border-radius: 4px;
-font-family: 'Inter';
-font-style: normal;
-font-weight: bold;
-font-size: 12px;
-line-height: 15px;  
-color: #FFFFFF;
-border: 1px solid #303036;
-cursor: pointer;
+  background: #00e467;
+  border-radius: 4px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ffffff;
+  border: 1px solid #303036;
+  cursor: pointer;
 }
 
 .cardInfoButtonDiv button:nth-child(2) {
-      
-    background: none; 
+  background: none;
+}
 
+/* SINGLE PAGE */
+
+.communitiesContainerSingle { 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.communityPictureDivSingle {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 90;
+  width: 100%;
+}
+.communityPictureDivSingle img,
+.communityCardSingleTitle,
+.communityDescription,.communityReq,.communityMembersList {
+  margin-left: 74.5px;  
+  max-width: 90%;
+
+}
+.communityCardSingleTitle,
+.communityDescription,
+.communityReq,
+.communityMembersList { 
+      max-width: 1000px;
+}
+.communityCardLineSingle {
+  border: 1px solid #303036;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  z-index: -1;
+
+}
+
+.communityCardSingleTitle{ 
+    max-width: 80%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: 0.45s ease;
+    border-bottom: 1px solid rgb(141, 159, 141);
+ 
+}
+
+.communityCardSingleTitleLeft{
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+}
+ 
+
+.communityCardVerified{ 
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px 12px; 
+        margin-left: 12px;
+        background: rgba(86, 122, 243, 0.1);
+border-radius: 6px;
+height: 20px;
+left: 117px;
+}
+
+.communityCardVerified img {
+    padding-right: 5px;
+}
+.communityCardVerified p {
+    color :#567AF3;
+}
+
+.communityDescription{
+    
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 20px;  
+color: #7F7F7F;
+max-width: 80%;
+}
+
+.communityCardMembersTitle{ 
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 20px; 
+color: #FFFFFF;
+}
+
+.communityCardMembersCount{
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 12px;
+line-height: 20px; 
+color: #7F7F7F;
+margin-left: 10px;
+margin-top: 17px;
+}
+
+.communityCardCollapse{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.communityMembersList{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.communityMembersListCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 60px; 
+    padding: 15px; 
+    border-radius: 5px;
+    transition: 0.45s ease;
+    animation: fade-down 1s ease;
+    cursor: pointer; 
+    margin-top: 10px;
+}
+@keyframes fade-down {
+    0%{
+        opacity: 0;
+        margin-top: -10px;
+    }
+    100%{
+        opacity: 1; 
+        margin-top: 10px;
+    }
+}
+.communityMembersListCard:hover{ 
+    background-color:   #183a27;
+}
+.communityMembersListCard img{
+width: 50px;
+height: 50px;
+}
+
+.communityMembersListCard p{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px; 
+    color: #7F7F7F;
+    }
+
+    .communityGreenButton{
+        width: 78px;
+        height: 28px;
+      
+        background: #00e467;
+        border-radius: 4px;
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 15px;
+        color: #ffffff;
+        border: 1px solid #303036;
+        cursor: pointer;
     }

@@ -125,9 +125,19 @@ const Chat = () => {
     addFriend({ variables: { address: request } });
   };
 
+  const switchToEncryptionMessage = () => {
+    setChatState(CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG);
+  }
+  const shortenEthAddress = (address) => {  
+    if (!address)  return "Not Connected"; 
+       const firstStr = address.slice(0,4);
+   const lastStr = address.slice(address.length - 4, address.length)
+   return firstStr + "...." + lastStr || "";
+    
+ }
   return (
     <div className={styles.chat} ref={pageRef}>
-      <Sidebar switchChatStateToFriendList={switchChatStateToFriendList} />
+      <Sidebar switchChatStateToFriendList={switchChatStateToFriendList} switchToEncryptionMessage={switchToEncryptionMessage} switchChatStateToPendingFriend={switchChatStateToPendingFriend} />
       <div className={styles.chatRightContainer}>
         <div className={styles.quiltNewLogo8dc214cbfb2f936Parent}>
           <button
@@ -139,7 +149,8 @@ const Chat = () => {
             }}
           >
             <div className={styles.x4c99923bdParent}>
-              <div className={styles.x4c99923bd}>{address}</div>
+            <div className={styles.x4c99923bd}>{shortenEthAddress(address) || address}</div>
+
               <div className={styles.ethereum}>{network}</div>
             </div>
             <Image className={styles.vectorIcon} alt="" src={arrow} />
@@ -151,7 +162,7 @@ const Chat = () => {
             <PendingRequest />
           )}
 
-          <Friendlist chatState={chatState} />
+          <Friendlist chatState={chatState} placeholder={"Find a community"} />
           {chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
             <div className={pendingStyles.padlockMainContainer}>
               <div className={pendingStyles.frameContainerPadlock}>
