@@ -51,11 +51,11 @@ const Sidebar = ({ switchChatStateToFriendList,switchChatStateToPendingFriend,sw
           <Image className={styles.vectorIcon} alt="" src={friend} />
           <div className={styles.community}>Friends</div>
         </button>
-        <button className={styles.vectorGroup}>
+        <button className={styles.vectorGroup}  onClick={() => router.push('/worldchat')}>
           <Image className={styles.vectorIcon} alt="" src={globe} />
           <div className={styles.community}>World chat</div>
         </button>
-        <button className={styles.vectorParent}>
+        <button className={styles.vectorParent} onClick={() => router.push('/profile')}>
           <Image className={styles.rimessage3LineIcon} alt="" src={profile} />
           <div className={styles.community}>Profile</div>
         </button>

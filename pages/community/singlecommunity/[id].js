@@ -6,7 +6,7 @@ import Friendlist from "../../../components/friendlist";
 import Sidebar from "../../../components/sidebar";
 import styles from "../../../styles/chat.module.css";
 import communityStyles from "../../../styles/community.module.css";
-import pendingStyles from "../../../styles/pendingrequest.module.css"; 
+import friendListStyles from "../../../styles/friendlist.module.css";
 import usercommunity from "../../../img/usercommunity.svg";
 import infocircle from "../../../img/infocircle.svg";
 import verify from "../../../img/verify.svg";
@@ -17,10 +17,12 @@ import microphone from "../../../img/microphone.png";
 import file from "../../../img/file.png";
 import user1 from "../../../img/user1.png";
 import user2 from "../../../img/user2.png";
-import user3 from "../../../img/user3.png"; 
+import user3 from "../../../img/user3.png";
 import ethicon from "../../../img/eth-icon.svg";
 import threedots from "../../../img/three-dots.svg";
 import PendingRequest from "@/components/pendingrequest";
+import userbg from "../../../img/userbg.svg";
+import caretdown from "../../../img/caretdown.svg";
 import {
   CHAT_PAGE_CONTROLS,
   ACTIVE_SIDEBAR_STATES,
@@ -37,14 +39,13 @@ const Chat = () => {
   const [chatState, setChatState] = useState(
     CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST
   );
-  const [communities, setCommunities] = useState([{}, {}, {}]);
-  const [showMembers, setShowMembers] = useState(false)
+  const [welcome, setWelcome] = useState(true);
+  const [showMembers, setShowMembers] = useState(true);
   const pageRef = useRef();
   const [request, setRequest] = useState("");
   const logout = userData((state) => state.logout);
   const router = useRouter();
 
-  console.log("communities,", communities);
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -132,13 +133,12 @@ const Chat = () => {
     addFriend({ variables: { address: request } });
   };
 
-  const shortenEthAddress = (address) => {  
-    if (!address)  return "Not Connected"; 
-       const firstStr = address.slice(0,4);
-   const lastStr = address.slice(address.length - 4, address.length)
-   return firstStr + "...." + lastStr || "";
-    
- }
+  const shortenEthAddress = (address) => {
+    if (!address) return "Not Connected";
+    const firstStr = address.slice(0, 4);
+    const lastStr = address.slice(address.length - 4, address.length);
+    return firstStr + "...." + lastStr || "";
+  };
   return (
     <div className={styles.chat} ref={pageRef}>
       <Sidebar
@@ -156,7 +156,9 @@ const Chat = () => {
             }}
           >
             <div className={styles.x4c99923bdParent}>
-            <div className={styles.x4c99923bd}>{shortenEthAddress(address) || address}</div>
+              <div className={styles.x4c99923bd}>
+                {shortenEthAddress(address) || address}
+              </div>
 
               <div className={styles.ethereum}>{network}</div>
             </div>
@@ -165,156 +167,245 @@ const Chat = () => {
         </div>
 
         <div className={styles.friendListContainer}>
-         
-
-          <Friendlist chatState={chatState} showCommunity={false} /> 
+          <Friendlist
+            chatState={chatState}
+            showCommunity={false}
+            placeholder={"Find a community"}
+            children={   <div style={{marginLeft: '20px'}}>
+                <button className={friendListStyles.ellipseParent}>
+                <Image className={friendListStyles.frameInner} alt="" src={user2} />
+                <div className={friendListStyles.westwoodeth}>Uniswap Labs</div>
+              </button>
+            </div>}
+          />
           {chatState === CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST && (
             <>
-                <div>
-                    LEFT ANGLE
-                </div>
-            
-            <div className={styles.frameContainer}>
-              <div className={styles.frameWrapper}>
-                <div className={styles.ellipseParent}>
-                  <Image className={styles.frameChild} alt="" src={user2} />
-                  <div className={styles.sunnndayyyParent}>
-                    <div className={styles.sunnndayyy}>Sunnndayyy</div>
-                    <div className={styles.ellipseGroup}>
-                      <Image className={styles.ethIcon} alt="" src={ethicon} />
-                      <div className={styles.xf4844ab5b4fc}>0xf4844ab5b4fc</div>
+              <div className={communityStyles.singleCommMainContainer}>
+                <div className={communityStyles.singleCommMain}>
+                  <div className={communityStyles.communityPictureContainer}>
+                    <Image className={styles.userbg} alt="" src={userbg} />
+                    <Image
+                      className={communityStyles.communityPicture}
+                      alt=""
+                      src={user1}
+                    />
+                  </div>
+
+                  <div
+                    className={
+                      communityStyles.singleCommunityCardSingleTitleLeft
+                    }
+                  >
+                    <p>Uniswap Labs</p>
+                    <div className={communityStyles.communityCardVerified}>
+                      <Image alt="" src={verify} />
+                      <p>Verified</p>
                     </div>
                   </div>
                 </div>
-                <div className={styles.dropdownContainer}>
-                  <Image
-                    className={styles.threedots}
-                    alt=""
-                    src={threedots}
-                    onClick={() => setShowDropdown(true)}
-                  />
 
-                  {/* {showDropdown && (
-                    <ChatProfileCard setShowDropdown={setShowDropdown} />
-                  )} */}
+                <div className={communityStyles.singleCommHashtagContainer}>
+                  <div className={communityStyles.singleCommHashtagToggle} onClick={() => setWelcome(!welcome)}>
+                    <p>Welcome</p>
+                    <Image alt="" src={caretdown} />
+                  </div>
+
+                  {welcome && (
+                    <div className={communityStyles.singleCommHashtagDropdown}>
+                      <p>#welcome</p>
+                      <p># onboarding</p>
+                      <p># random</p>
+                      <p># help</p>
+                    </div>
+                  )}
+                </div>
+
+                <div className={communityStyles.singleCommHashtagContainer}>
+                  <div className={communityStyles.singleCommHashtagToggle} onClick={() => setShowMembers(!showMembers)}>
+                    <p>Townhall</p>
+                    <Image alt="" src={caretdown} />
+                  </div>
+                  {showMembers && (
+                    <div className={communityStyles.singleCommHashtagDropdown}>
+                      <p>#announcement</p>
+                      <p># general</p>
+                      <p># uni-governance</p>
+                      <p># help</p>
+                    </div>
+                  )}
+                </div>
+
+                <div className={communityStyles.singleCommHashtagContainer}>
+                  <div className={communityStyles.singleCommHashtagToggle}>
+                    <p>Townhall</p>
+                    <Image alt="" src={caretdown} />
+                  </div>
+                  <div className={communityStyles.singleCommHashtagDropdown}>
+                    <p>#announcement</p>
+                    <p># general</p>
+                    <p># uni-governance</p>
+                    <p># help</p>
+                  </div>
                 </div>
               </div>
-              <section className={styles.frameSection}>
-                <div className={styles.frameDiv}>
-                  <div className={styles.daysAgoGroup}>
-                    <div className={styles.xf4844ab5b4fc}>7 days ago</div>
-                    <h3 className={styles.gmSundayyyWrapper}>
-                      <div className={styles.gmPickle}>Gm sundayyy</div>
-                    </h3>
-                  </div>
-                  <div className={styles.ellipseContainer}>
-                    <Image className={styles.frameInner} alt="" src={user3} />
+
+              <div className={styles.frameContainer}>
+                <div className={styles.frameWrapper}>
+                  <div className={styles.ellipseParent}>
+                    {/* <Image className={styles.frameChild} alt="" src={user2} /> */}
                     <div className={styles.sunnndayyyParent}>
-                      <div className={styles.xf4844ab5b4fc}>7 days ago</div>
-                      <h3 className={styles.gmPickleWrapper}>
-                        <div className={styles.gmPickle}>Gm pickle</div>
-                      </h3>
-                      <h3 className={styles.gmPickleWrapper}>
-                        <div className={styles.gmPickle}>Welcome to Quilt</div>
-                      </h3>
-                    </div>
-                  </div>
-                  <div className={styles.daysAgoGroup}>
-                    <div className={styles.xf4844ab5b4fc}>7 days ago</div>
-                    <h3 className={styles.gmSundayyyWrapper}>
-                      <div className={styles.gmPickle}>Gm sundayyy</div>
-                    </h3>
-                  </div>
-                  <div className={styles.ellipseContainer}>
-                    <Image className={styles.frameInner} alt="" src={user3} />
-                    <div className={styles.sunnndayyyParent}>
-                      <div className={styles.xf4844ab5b4fc}>7 days ago</div>
-                      <h3 className={styles.gmPickleWrapper}>
-                        <div className={styles.gmPickle}>Gm pickle</div>
-                      </h3>
-                      <h3 className={styles.gmPickleWrapper}>
-                        <div className={styles.gmPickle}>Welcome to Quilt</div>
-                      </h3>
-                    </div>
-                  </div>
-                  <div className={styles.daysAgoGroup}>
-                    <div className={styles.xf4844ab5b4fc}>7 days ago</div>
-                    <h3 className={styles.gmSundayyyWrapper}>
-                      <div className={styles.gmPickle}>Gm sundayyy</div>
-                    </h3>
-                  </div>
-                  <div className={styles.ellipseContainer}>
-                    <Image className={styles.frameInner} alt="" src={user3} />
-                    <div className={styles.sunnndayyyParent}>
-                      <div className={styles.xf4844ab5b4fc}>7 days ago</div>
-                      <h3 className={styles.gmPickleWrapper}>
-                        <div className={styles.gmPickle}>Gm pickle</div>
-                      </h3>
-                      <h3 className={styles.gmPickleWrapper}>
-                        <div className={styles.gmPickle}>Welcome to Quilt</div>
-                      </h3>
-                    </div>
-                  </div>
-                  <div className={styles.daysAgoGroup}>
-                    <div className={styles.xf4844ab5b4fc}>7 days ago</div>
-                    <h3 className={styles.gmSundayyyWrapper}>
-                      <div className={styles.gmPickle}>Gm sundayyy</div>
-                    </h3>
-                  </div>
-                  <div className={styles.ellipseContainer}>
-                    <Image className={styles.frameInner} alt="" src={user3} />
-                    <div className={styles.sunnndayyyParent}>
-                      <div className={styles.xf4844ab5b4fc}>7 days ago</div>
-                      <h3 className={styles.gmPickleWrapper}>
-                        <div className={styles.gmPickle}>Gm pickle</div>
-                      </h3>
-                      <h3 className={styles.gmPickleWrapper}>
-                        <div className={styles.gmPickle}>Welcome to Quilt</div>
-                      </h3>
-                    </div>
-                  </div>
-                  <div className={styles.daysAgoGroup}>
-                    <div className={styles.xf4844ab5b4fc}>7 days ago</div>
-                    <h3 className={styles.gmSundayyyWrapper}>
-                      <div className={styles.gmPickle}>Gm sundayyy</div>
-                    </h3>
-                  </div>
-                  <div className={styles.ellipseContainer}>
-                    <Image className={styles.frameInner} alt="" src={user3} />
-                    <div className={styles.sunnndayyyParent}>
-                      <div className={styles.xf4844ab5b4fc}>7 days ago</div>
-                      <h3 className={styles.gmPickleWrapper}>
-                        <div className={styles.gmPickle}>Gm pickle</div>
-                      </h3>
-                      <h3 className={styles.gmPickleWrapper}>
-                        <div className={styles.gmPickle}>Welcome to Quilt</div>
-                      </h3>
+                      <div className={styles.sunnndayyy}>#general</div>
+                      {/* <div className={styles.ellipseGroup}>
+                        <Image
+                          className={styles.ethIcon}
+                          alt=""
+                          src={ethicon}
+                        />
+                        <div className={styles.xf4844ab5b4fc}>
+                          0xf4844ab5b4fc
+                        </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
-                <div className={styles.frameParent1}>
-                  <form className={styles.frameForm}>
-                    <Image className={styles.ellipseIcon} alt="" src={user1} />
-                    <input type="text" className={styles.frameFormInput} />
-                    <button className={styles.iconsaxlinearsend}>
-                      <Image className={styles.vectorIcon1} alt="" src={send} />
-                    </button>
-                  </form>
-                  <div className={styles.rightButtonsContainer}>
-                    <button className={styles.vectorWrapper}>
-                      <Image className={styles.vectorIcon2} alt="" src={file} />
-                    </button>
-                    <button className={styles.iconsaxlinearmicrophone2}>
+                <section className={styles.frameSection}>
+                  <div className={styles.frameDiv}>
+                    <div className={styles.daysAgoGroup}>
+                      <div className={styles.xf4844ab5b4fc}>7 days ago</div>
+                      <h3 className={styles.gmSundayyyWrapper}>
+                        <div className={styles.gmPickle}>Gm sundayyy</div>
+                      </h3>
+                    </div>
+                    <div className={styles.ellipseContainer}>
+                      <Image className={styles.frameInner} alt="" src={user3} />
+                      <div className={styles.sunnndayyyParent}>
+                        <div className={styles.xf4844ab5b4fc}>7 days ago</div>
+                        <h3 className={styles.gmPickleWrapper}>
+                          <div className={styles.gmPickle}>Gm pickle</div>
+                        </h3>
+                        <h3 className={styles.gmPickleWrapper}>
+                          <div className={styles.gmPickle}>
+                            Welcome to Quilt
+                          </div>
+                        </h3>
+                      </div>
+                    </div>
+                    <div className={styles.daysAgoGroup}>
+                      <div className={styles.xf4844ab5b4fc}>7 days ago</div>
+                      <h3 className={styles.gmSundayyyWrapper}>
+                        <div className={styles.gmPickle}>Gm sundayyy</div>
+                      </h3>
+                    </div>
+                    <div className={styles.ellipseContainer}>
+                      <Image className={styles.frameInner} alt="" src={user3} />
+                      <div className={styles.sunnndayyyParent}>
+                        <div className={styles.xf4844ab5b4fc}>7 days ago</div>
+                        <h3 className={styles.gmPickleWrapper}>
+                          <div className={styles.gmPickle}>Gm pickle</div>
+                        </h3>
+                        <h3 className={styles.gmPickleWrapper}>
+                          <div className={styles.gmPickle}>
+                            Welcome to Quilt
+                          </div>
+                        </h3>
+                      </div>
+                    </div>
+                    <div className={styles.daysAgoGroup}>
+                      <div className={styles.xf4844ab5b4fc}>7 days ago</div>
+                      <h3 className={styles.gmSundayyyWrapper}>
+                        <div className={styles.gmPickle}>Gm sundayyy</div>
+                      </h3>
+                    </div>
+                    <div className={styles.ellipseContainer}>
+                      <Image className={styles.frameInner} alt="" src={user3} />
+                      <div className={styles.sunnndayyyParent}>
+                        <div className={styles.xf4844ab5b4fc}>7 days ago</div>
+                        <h3 className={styles.gmPickleWrapper}>
+                          <div className={styles.gmPickle}>Gm pickle</div>
+                        </h3>
+                        <h3 className={styles.gmPickleWrapper}>
+                          <div className={styles.gmPickle}>
+                            Welcome to Quilt
+                          </div>
+                        </h3>
+                      </div>
+                    </div>
+                    <div className={styles.daysAgoGroup}>
+                      <div className={styles.xf4844ab5b4fc}>7 days ago</div>
+                      <h3 className={styles.gmSundayyyWrapper}>
+                        <div className={styles.gmPickle}>Gm sundayyy</div>
+                      </h3>
+                    </div>
+                    <div className={styles.ellipseContainer}>
+                      <Image className={styles.frameInner} alt="" src={user3} />
+                      <div className={styles.sunnndayyyParent}>
+                        <div className={styles.xf4844ab5b4fc}>7 days ago</div>
+                        <h3 className={styles.gmPickleWrapper}>
+                          <div className={styles.gmPickle}>Gm pickle</div>
+                        </h3>
+                        <h3 className={styles.gmPickleWrapper}>
+                          <div className={styles.gmPickle}>
+                            Welcome to Quilt
+                          </div>
+                        </h3>
+                      </div>
+                    </div>
+                    <div className={styles.daysAgoGroup}>
+                      <div className={styles.xf4844ab5b4fc}>7 days ago</div>
+                      <h3 className={styles.gmSundayyyWrapper}>
+                        <div className={styles.gmPickle}>Gm sundayyy</div>
+                      </h3>
+                    </div>
+                    <div className={styles.ellipseContainer}>
+                      <Image className={styles.frameInner} alt="" src={user3} />
+                      <div className={styles.sunnndayyyParent}>
+                        <div className={styles.xf4844ab5b4fc}>7 days ago</div>
+                        <h3 className={styles.gmPickleWrapper}>
+                          <div className={styles.gmPickle}>Gm pickle</div>
+                        </h3>
+                        <h3 className={styles.gmPickleWrapper}>
+                          <div className={styles.gmPickle}>
+                            Welcome to Quilt
+                          </div>
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.frameParent1}>
+                    <form className={styles.frameForm}>
                       <Image
-                        // className={styles.vectorIcon3}
+                        className={styles.ellipseIcon}
                         alt=""
-                        src={microphone}
+                        src={user1}
                       />
-                    </button>
+                      <input type="text" className={styles.frameFormInput} />
+                      <button className={styles.iconsaxlinearsend}>
+                        <Image
+                          className={styles.vectorIcon1}
+                          alt=""
+                          src={send}
+                        />
+                      </button>
+                    </form>
+                    <div className={styles.rightButtonsContainer}>
+                      <button className={styles.vectorWrapper}>
+                        <Image
+                          className={styles.vectorIcon2}
+                          alt=""
+                          src={file}
+                        />
+                      </button>
+                      <button className={styles.iconsaxlinearmicrophone2}>
+                        <Image
+                          // className={styles.vectorIcon3}
+                          alt=""
+                          src={microphone}
+                        />
+                      </button>
+                    </div>
+                    {/* ======= */}
                   </div>
-                  {/* ======= */}
-                </div>
-                {/* <div className={styles.frameParent1}>
+                  {/* <div className={styles.frameParent1}>
                 <form className={styles.frameForm}>
                   <Image
                     className={styles.ellipseIcon}
@@ -347,7 +438,7 @@ const Chat = () => {
                   </button> 
                 </div>
                 </div> */}
-                    {/* <input type="text" className={styles.frameFormInput} />
+                  {/* <input type="text" className={styles.frameFormInput} />
                     <button className={styles.iconsaxlinearsend}>
                       <Image className={styles.vectorIcon1} alt="" src={send} />
                     </button>
@@ -365,8 +456,8 @@ const Chat = () => {
                     </button>
                   </div>
                 </div> */}
-              </section>
-            </div>
+                </section>
+              </div>
             </>
           )}
         </div>

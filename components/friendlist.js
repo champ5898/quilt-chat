@@ -18,7 +18,7 @@ import Image from "next/image";
 import { img } from "../context/userData";
 import { userData } from "../context/userData";
 import { CHAT_PAGE_CONTROLS } from "../constants/chat";
-const Friendlist = ({ showCommunity, placeholder}) => {
+const Friendlist = ({ showCommunity, placeholder, children}) => {
   let friendData = [];
   const friends = userData((state) => state.friends);
 
@@ -71,6 +71,10 @@ const Friendlist = ({ showCommunity, placeholder}) => {
               ))}
             </section>
           </> }
+
+          {
+            children
+          }
      
     </section>
   );
