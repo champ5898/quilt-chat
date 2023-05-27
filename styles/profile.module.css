@@ -7,150 +7,272 @@
   /* width: 703px; */
   width: 100%;
   flex-direction: row;
-  align-items: center; 
+  align-items: center;
 }
 
-.profileTopDiv{
-    width: 100%;  
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 60px 0;
+.profileTopDiv {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 0;
 }
 
 .profileTopDiv img {
-    width: 100px;
-height: 100px;
+  width: 100px;
+  height: 100px;
 }
 
-.profileTopDiv p{
-    font-family: 'Inter';
-font-style: normal;
-font-weight: 600;
-font-size: 18px;
-line-height: 22px;
+.profileTopDiv p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
 }
 
-.profileDivEdit{ 
-    background: #181B21;
-border-radius: 6px;
-max-width: 115px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-flex-direction: row;
-padding: 0 15px
+.profileDivEdit {
+  background: #181b21;
+  border-radius: 6px;
+  max-width: 115px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 0 15px;
+  cursor: pointer;
 }
 
 .profileDivEdit img {
-    width: 12px;
-    height: 12px;
+  width: 12px;
+  height: 12px;
 }
 
-.profileDivEdit p{
-    font-family: 'Inter';
-font-style: normal;
-font-weight: 500;
-font-size: 12px;
-line-height: 15px;
-padding-left: 7px;
+.profileDivEdit p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  padding-left: 7px;
 }
 
-.nftContainer{
-    border-top: 1px solid #303036;
-    border-bottom: 1px solid #303036;
-    height: 67px;
-    display: flex; 
-align-items: center;
-padding-left: 100px;
+.nftContainer {
+  border-top: 1px solid #303036;
+  border-bottom: 1px solid #303036;
+  height: 67px;
+  display: flex;
+  align-items: center;
+  padding-left: 100px;
 }
 
-.nftContainerTitle{
-    height: 100%;
-    display: flex; 
-    justify-content: center;
-align-items: center; 
-    width: 80px;
-    border-bottom: 1px solid #46b671;
-    color: #8B98AC;
-    font-family: 'Inter';
-font-style: normal;
-font-weight: 600;
-font-size: 18px;
-line-height: 22px;
+.nftContainerTitle {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  border-bottom: 1px solid #46b671;
+  color: #8b98ac;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
 }
 
-.nftCardsContainer{ 
-    margin-top: 42.5px;
-    padding-left: 100px;
-    /* display: grid;  */
-    display: flex;
-    justify-content: flex-start;
-    /* grid-template-columns: 1fr 1fr 1fr;
+.nftCardsContainer {
+  margin-top: 42.5px;
+  padding-left: 100px;
+  /* display: grid;  */
+  display: flex;
+  justify-content: flex-start;
+  /* grid-template-columns: 1fr 1fr 1fr;
     gap: 20px; */
-align-items: center; 
+  align-items: center;
 }
 
 .nftCardsContainer > div {
-    margin-right: 3%;
+  margin-right: 3%;
+  cursor: pointer;
 }
 
 /* overlay */
 
-.bgOverlay{
-    position: absolute;
-    z-index: 9999;
-    background: rgba(18, 18, 20, 0.8);
-    width: 100%;
-    height: 100vh;
+.bgOverlay {
+  position: absolute;
+  z-index: 9999;
+  background: rgba(18, 18, 20, 0.8);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.45s ease;
+  animation: fade-in 0.25s ease-in;
+  opacity: 1;
+  margin-top: 0;
+  
+}
+
+@keyframes fade-in {
+    0%{
+        opacity: 0.45;
+        margin-top: -10px;
+    }
+    100%{
+        opacity: 1;
+        margin-top: 0;
+    }
+}
+
+.bgOverlayCard {
+  display: flex;
+  flex-direction: column;
+  max-width: 768px;
+  min-height: 663px;
+  width: 50%;
+  height:  663px;
+  background: #18181b;
+  border: 1px solid #303036;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.bgOverlayCardMiddleLine {
+  border-left: 1px solid #303036;
+  padding-right: 20px;
+  height: 100%;
+}
+.bgOverlayCardLeft button {
+  background-color: transparent;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #8b98ac;
+  border: none;
+  font-weight: 600;
+  font-size: 18px;
+}
+.bgOverlayCardLeft button > div {
+  padding-left: 10px;
+}
+.bgOverlayCardLeft {
+  padding: 0 14px;
+  height: 100%;
+}
+.user4 {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.bgOverlayCardRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: flex-start;
+  width: 80%;
+  height: 80%; 
+}
+
+.bgOverlayCard p {
+  text-align: right;
+  padding-right: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.bgOverlayCardLower {
+  display: flex;
+  flex-direction: row;
+  height: 100%;  
+}
+.bgOverlayCardRight label {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  color: #8b98ac;
+}
+
+.bgOverlayCardRight input ,.bgOverlayCardRight textarea {
+  height: 45px;
+  width: 70%;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 14px;
+  margin: 12px 0;
+  padding: 0 10px;
+  color: #8b98ac;
+  border: 1px solid #303036;
+  border-radius: 6px;
+  background: none;
+  outline: none;
+}
+.bgOverlayCardRight textarea{
+    height: 400px;
+    resize: none;
+    padding: 10px;
+}
+.secretCardsDiv {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.secretCardsDiv button {
+  border-radius: 6px;
+  width: 108px;
+  height: 35px;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
+  color: #ffffff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.secretCardsDiv button:nth-child(1) {
+  background: #00e467;
+}
+
+.secretCardsDiv button:nth-child(2) {
+  background: transparent;
+  border: 1px solid #303036;
+  margin-left: 25px;
+}
+
+.singleEthCard{ 
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 40px;
+}
+
+.singleEthCardOwned{ 
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.singleEthCardOwnedImg{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
 }
 
-.bgOverlayCard{
-    display: flex;
-    flex-direction: row;
-    max-width: 768px;
-    min-height: 400px;
-    width: 50%;
-max-height: 663px; 
-background: #18181B;
-border: 1px solid #303036;
-border-radius: 8px;
-overflow: hidden;
-}
-.bgOverlayCardMiddleLine {
-    border: 1px solid #303036; 
-    
-}
-.bgOverlayCardLeft button{
-background-color: transparent;
-outline: none;
-display: flex;
-justify-content: center;
-align-items: center;
-color: #8B98AC;
-border: none;
+.singleEthCardOwnedImg p {
+    font-family: 'Inter'; 
 font-weight: 600;
-font-size: 18px;
-}
-.bgOverlayCardLeft button > div {
-    padding-left: 10px;
-}
-.bgOverlayCardLeft{
-
-}
-.user4{
-    width: 80px;
-height: 80px;
-border-radius: 50%;
-}
-
-.bgOverlayCardRight{
-    display: flex;
-    flex-direction: column;
-justify-content: flex-start;
-align-items: flex-start;
+font-size: 16px;
+line-height: 19px; 
+color: #8B98AC;
+margin-left: 12px;
 }

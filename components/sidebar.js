@@ -13,7 +13,10 @@ import { useRouter } from "next/router";
 import { userData } from "../context/userData"; 
 const Sidebar = ({ switchChatStateToFriendList,switchChatStateToPendingFriend,switchToEncryptionMessage }) => {
   const chatState = userData((state) => state.currentChatState);
-  const router = useRouter()
+  const router = useRouter();
+  const routeId = router.asPath;
+
+  console.log("route id =>>>"+ routeId)
   return (
     <div className={styles.sidebarParent}>
       <section className={styles.sidebarParentGroup}>
@@ -28,22 +31,26 @@ const Sidebar = ({ switchChatStateToFriendList,switchChatStateToPendingFriend,sw
         <button
         onClick={() => router.push('/chat')}
           className={
-            chatState === "SHOW_PENDING_REQUEST"
-              ? styles.vectorParent
-              : styles.communicationCommentParent
+            routeId == "/chat"
+              ? styles.communicationCommentParent
+              : styles.vectorParent
           }
         >
           <Image className={styles.communicationComment} alt="" src={chat} />
           <h1 className={styles.chat}>Chat</h1>
         </button>
-        <button className={styles.rimessage3LineParent}  onClick={() => router.push('/community')}>
+        <button className={
+            routeId == "/community"
+              ? styles.communicationCommentParent
+              : styles.vectorParent
+          }  onClick={() => router.push('/community')}>
           <Image className={styles.rimessage3LineIcon} alt="" src={community} />
           <div className={styles.community}>Community</div>
         </button>
         <button
  onClick={() => router.push('/friends')}
-          className={
-            chatState === "SHOW_PENDING_REQUEST"
+ className={
+            routeId == "/friends"
               ? styles.communicationCommentParent
               : styles.vectorParent
           }
@@ -51,11 +58,19 @@ const Sidebar = ({ switchChatStateToFriendList,switchChatStateToPendingFriend,sw
           <Image className={styles.vectorIcon} alt="" src={friend} />
           <div className={styles.community}>Friends</div>
         </button>
-        <button className={styles.vectorGroup}  onClick={() => router.push('/worldchat')}>
+        <button  className={
+            routeId == "/worldchat"
+              ? styles.communicationCommentParent
+              : styles.vectorParent
+          }  onClick={() => router.push('/worldchat')}>
           <Image className={styles.vectorIcon} alt="" src={globe} />
           <div className={styles.community}>World chat</div>
         </button>
-        <button className={styles.vectorParent} onClick={() => router.push('/profile')}>
+        <button className={
+            routeId == "/profile"
+              ? styles.communicationCommentParent
+              : styles.vectorParent
+          } onClick={() => router.push('/profile')}>
           <Image className={styles.rimessage3LineIcon} alt="" src={profile} />
           <div className={styles.community}>Profile</div>
         </button>

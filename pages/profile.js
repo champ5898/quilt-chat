@@ -28,6 +28,7 @@ import ChatProfileCard from "../fragments/ChatProfileCard";
 import { CHAT_PAGE_CONTROLS } from "../constants/chat";
 import { useRouter } from "next/router";
 import { ADD_FRIEND } from "@/graphql/queries";
+import OverlayCard from "@/fragments/OverlayCard";
 
 const Profile = () => {
   const address = userData((state) => state.address);
@@ -41,8 +42,8 @@ const Profile = () => {
   const [chatState, setChatState] = useState(
     CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST
   );
-  const [showDropdown, setShowDropdown] = useState(false);
-
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [showCardItem, setShowCardItem] = useState(false);
   const pageRef = useRef();
   const [request, setRequest] = useState("");
   const logout = userData((state) => state.logout);
@@ -146,37 +147,81 @@ const Profile = () => {
 
   return (
     <div className={styles.chat} ref={pageRef}>
-      <div className={profileStyles.bgOverlay}>
-        <div className={profileStyles.bgOverlayCard}>
-          <p>x</p>
-          <div className={profileStyles.bgOverlayCardLeft}>
-            <button className={styles.vectorParent}>
-              <Image
-                className={styles.rimessage3LineIcon}
-                alt=""
-                src={profile}
-              />
-              <div className={styles.community}>Profile</div>
-            </button>
-          </div>
-            <div className={profileStyles.bgOverlayCardMiddleLine}/>
-          <div className={profileStyles.bgOverlayCardRight}>
-            <Image className={profileStyles.user4} alt="" src={user4} />
+      {showCardItem && (
+        <div className={profileStyles.bgOverlay}>
+          <div className={profileStyles.bgOverlayCard} style={{width: "560px", height: "560px"}}>
+            <p onClick={() => setShowCardItem(false)}>x</p>
+            <OverlayCard
+              children={
+                <>
+                   <div>
+              <Image className={styles.user4} alt="" src={user4} />
+              <div className={profileStyles.singleEthCard}>
+                <p>The Lost Donkey</p>
+                <p>£3490</p>
+              </div>
 
-            <label>Display Name</label>
-            <input type="text" />
-
-            <label>Set Status</label>
-            <input type="text" />
-
-            <p>Secret phase</p>
-            <div>
-              <button>Backup</button>
-              <button>Reset</button>
+              <div className={profileStyles.singleEthCard}>
+                <div className={profileStyles.singleEthCardOwned}>
+                  <div>Owned By</div>
+                  <div className={profileStyles.singleEthCardOwnedImg}>
+                <Image className={styles.user1} alt="" src={user1} />
+            <p>crispz.eth</p>
+                </div>
+                </div>
+                
+              </div>
             </div>
+                </>
+              } />
           </div>
         </div>
-      </div>
+      )}
+      {showOverlay && (
+        <div className={profileStyles.bgOverlay}>
+          <div className={profileStyles.bgOverlayCard}>
+            <p onClick={() => setShowOverlay(false)}>x</p>
+            <OverlayCard
+              children={
+                <>
+                  <div className={profileStyles.bgOverlayCardLower}>
+                    <div className={profileStyles.bgOverlayCardLeft}>
+                      <button className={styles.vectorParent}>
+                        <Image
+                          className={styles.rimessage3LineIcon}
+                          alt=""
+                          src={profile}
+                        />
+                        <div className={styles.community}>Profile</div>
+                      </button>
+                    </div>
+                    <div className={profileStyles.bgOverlayCardMiddleLine} />
+                    <div className={profileStyles.bgOverlayCardRight}>
+                      <Image
+                        className={profileStyles.user4}
+                        alt=""
+                        src={user4}
+                      />
+
+                      <label>Display Name</label>
+                      <input type="text" />
+
+                      <label>Set Status</label>
+                      <textarea rows={70}></textarea>
+
+                      <p>Secret phase</p>
+                      <div className={profileStyles.secretCardsDiv}>
+                        <button>Backup</button>
+                        <button>Reset</button>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              }
+            />
+          </div>
+        </div>
+      )}
       <Sidebar
         switchChatStateToFriendList={switchChatStateToFriendList}
         switchToEncryptionMessage={switchToEncryptionMessage}
@@ -206,7 +251,10 @@ const Profile = () => {
           <div className={profileStyles.profileTopDiv}>
             <Image className={styles.user1} alt="" src={user1} />
             <p>crispz.eth</p>
-            <div className={profileStyles.profileDivEdit}>
+            <div
+              className={profileStyles.profileDivEdit}
+              onClick={() => setShowOverlay(true)}
+            >
               <Image className={styles.vectorIcon} alt="" src={editprofile} />
               <p>Edit Profile</p>
             </div>
@@ -217,16 +265,16 @@ const Profile = () => {
           </div>
 
           <div className={profileStyles.nftCardsContainer}>
-            <div>
+            <div onClick={() => setShowCardItem(true)}>
               <Image className={styles.user4} alt="" src={user4} />
             </div>
-            <div>
+             <div onClick={() => setShowCardItem(true)}>
               <Image className={styles.user4} alt="" src={user4} />
             </div>
-            <div>
+             <div onClick={() => setShowCardItem(true)}>
               <Image className={styles.user4} alt="" src={user4} />
             </div>
-            <div>
+             <div onClick={() => setShowCardItem(true)}>
               <Image className={styles.user4} alt="" src={user4} />
             </div>
           </div>
