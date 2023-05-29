@@ -30,13 +30,15 @@ const Chat = () => {
     CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST
   );
   const [communities, setCommunities] = useState([{}, {}, {}]);
-
+  const [showMembers, setShowMembers] = useState(false)
   const pageRef = useRef();
   const [request, setRequest] = useState("");
   const logout = userData((state) => state.logout);
   const router = useRouter();
+ 
+const routeId = router.asPath.split("/")[2];
 
-  console.log("communities,", communities);
+  console.log("communities,", router.asPath.split("/")[2]);
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -124,6 +126,13 @@ const Chat = () => {
     addFriend({ variables: { address: request } });
   };
 
+  const shortenEthAddress = (address) => {  
+    if (!address)  return "Not Connected"; 
+       const firstStr = address.slice(0,4);
+   const lastStr = address.slice(address.length - 4, address.length)
+   return firstStr + "...." + lastStr || "";
+    
+ }
   return (
     <div className={styles.chat} ref={pageRef}>
       <Sidebar
@@ -141,7 +150,8 @@ const Chat = () => {
             }}
           >
             <div className={styles.x4c99923bdParent}>
-              <div className={styles.x4c99923bd}>{address}</div>
+            <div className={styles.x4c99923bd}>{shortenEthAddress(address) || address}</div>
+
               <div className={styles.ethereum}>{network}</div>
             </div>
             <Image className={styles.vectorIcon} alt="" src={arrow} />
@@ -149,11 +159,9 @@ const Chat = () => {
         </div>
 
         <div className={styles.friendListContainer}>
-          {chatState === CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST && (
-            <PendingRequest />
-          )}
+         
 
-          <Friendlist chatState={chatState} />
+          <Friendlist chatState={chatState} showCommunity={false} />
           {chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
             <div className={pendingStyles.padlockMainContainer}>
               <div className={pendingStyles.frameContainerPadlock}>
@@ -197,60 +205,104 @@ const Chat = () => {
 
           <div className={styles.frameContainer}>
             <div className={communityStyles.frameCommunitiesWrapper}>
-              <h2>Suggested Communities</h2>
-
-              <div className={communityStyles.communitiesContainer}>
-                <div className={communityStyles.communityPictureDiv}>
+              <div className={communityStyles.communitiesContainerSingle}>
+                <div className={communityStyles.communityPictureDivSingle}>
                   <Image
-                    className={styles.communityUser}
+                    className={styles.communityUserSingle}
                     alt=""
                     src={usercommunity}
                   />
-                  <div className={communityStyles.communityCardLine} />
+                  <div className={communityStyles.communityCardLineSingle} />
                 </div>
 
-                <div>
-                  <div>
+                <div className={communityStyles.communityCardSingleTitle}>
+                  <div className={communityStyles.communityCardSingleTitleLeft}>
                     <p>Uniswap Labs</p>
-                    <Image alt="" src={verify} />
+                    <div className={communityStyles.communityCardVerified}>
+                      <Image alt="" src={verify} />
+                      <p>Verified</p>
+                    </div>
                   </div>
-                  <button>Join</button>
+                  <button className={communityStyles.communityGreenButton} onClick={() => router.push("/community/singlecommunity/"+routeId)}>
+                    Join
+                  </button>
                 </div>
-                <p>
+                <p className={communityStyles.communityDescription}>
                   Forgotten Runes is the world’s most robust decentralised
                   franchise. Our media ecosystem is comprised of animation
                   physical comic books, and a suite of video games. At core of
                   these media expressions are our character and our characters
                   are owned by our token holders.
                 </p>
-                <div>
+                <div className={communityStyles.communityReq}>
                   <p>Requirement</p>
-                  <div>
-                    <Image alt="" src={infocircle} />
 
+                  <div
+                    className={communityStyles.communityCardVerified}
+                    style={{
+                      marginLeft: 0,
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <Image alt="" src={infocircle} />
                     <p>Hold at least 1 UNI to join the community</p>
                   </div>
                 </div>
-
-                <div>
-                  <div>
+                <div className={communityStyles.communityCardSingleTitle} onClick={() => setShowMembers(prev => { return !prev})}>
+                  <div className={communityStyles.communityCardSingleTitleLeft}>
+                    <p className={communityStyles.communityCardMembersTitle}>
+                      Members
+                    </p>
                     <div>
-                      <p>Members</p>
-                      <p>60</p>
+                      <p className={communityStyles.communityCardMembersCount}>
+                        60
+                      </p>
                     </div>
-                    <div>-</div>
                   </div>
-                  <div>
-                  <div  >
-                  <Image
-                    className={styles.communityUser}
-                    alt=""
-                    src={usercommunity}
-                  />
-                  <p>Westwood</p>
+                  <button className={communityStyles.communityCardCollapse} >
+                    {showMembers ? "-" : "+"}
+                  </button>
                 </div>
+             {
+             showMembers &&( <div className={communityStyles.communityMembersList}>
+                  <div className={communityStyles.communityMembersListCard}>
+                    <Image
+                      className={styles.communityUser}
+                      alt=""
+                      src={usercommunity}
+                    />
+                    <p>Westwood</p>
                   </div>
-                </div>
+
+                  <div className={communityStyles.communityMembersListCard}>
+                    <Image
+                      className={styles.communityUser}
+                      alt=""
+                      src={usercommunity}
+                    />
+                    <p>Westwood</p>
+                  </div>
+
+                  <div className={communityStyles.communityMembersListCard}>
+                    <Image
+                      className={styles.communityUser}
+                      alt=""
+                      src={usercommunity}
+                    />
+                    <p>Westwood</p>
+                  </div>
+
+                  <div className={communityStyles.communityMembersListCard}>
+                    <Image
+                      className={styles.communityUser}
+                      alt=""
+                      src={usercommunity}
+                    />
+                    <p>Westwood</p>
+                  </div>
+                </div>)
+             }   
               </div>
             </div>
           </div>

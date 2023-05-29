@@ -32,7 +32,7 @@ const Chat = () => {
   // const setCurentChatStateToPendingReq =  userData((state) => state.setCurentChatState(CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST))
 
   const [chatState, setChatState] = useState(
-    CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG
+    CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST
   );
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -118,14 +118,6 @@ const Chat = () => {
   const switchToEncryptionMessage = () => {
     setChatState(CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG);
   }
-
-  const shortenEthAddress = (address) => {  
-     if (!address)  return "Not Connected"; 
-        const firstStr = address.slice(0,4);
-    const lastStr = address.slice(address.length - 4, address.length)
-    return firstStr + "...." + lastStr || "";
-     
-  }
   const [addFriend, { data, loading, error }] = useMutation(ADD_FRIEND, {
     onCompleted: (data) => {
       alert("Request sent!");
@@ -140,6 +132,13 @@ const Chat = () => {
     addFriend({ variables: { address: request } });
   };
 
+  const shortenEthAddress = (address) => {  
+    if (!address)  return "Not Connected"; 
+       const firstStr = address.slice(0,4);
+   const lastStr = address.slice(address.length - 4, address.length)
+   return firstStr + "...." + lastStr || "";
+    
+ }
   return (
     <div className={styles.chat} ref={pageRef}>
       <Sidebar switchChatStateToFriendList={switchChatStateToFriendList} switchToEncryptionMessage={switchToEncryptionMessage} switchChatStateToPendingFriend={switchChatStateToPendingFriend}/>
@@ -154,7 +153,8 @@ const Chat = () => {
             }}
           >
             <div className={styles.x4c99923bdParent}>
-              <div className={styles.x4c99923bd}>{shortenEthAddress(address) || address}</div>
+            <div className={styles.x4c99923bd}>{shortenEthAddress(address) || address}</div>
+
               <div className={styles.ethereum}>{network}</div>
             </div>
             <Image className={styles.vectorIcon} alt="" src={arrow} />
@@ -165,8 +165,8 @@ const Chat = () => {
           {chatState === CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST && (
             <PendingRequest />
           )}
-          { chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
-            <Friendlist chatState={chatState} placeholder={"Search ens or 0x41c...bd"} showCommunity={true} />
+          {!chatState === CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST && (
+            <Friendlist chatState={chatState} placeholder={"Search ens or 0x41c...bd"} showCommunity={false} />
 
           )}
           {chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
@@ -179,9 +179,9 @@ const Chat = () => {
                     platform
                   </p>
                 </div>
-                {/* <button onClick={() => router.push("/friends")}>
+                <button onClick={switchChatStateToPendingFriend}>
                   + {""} Add Friend
-                </button> */}
+                </button>
               </div>
             </div>
           )}
