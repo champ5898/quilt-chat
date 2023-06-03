@@ -80,8 +80,8 @@ const Chat = () => {
 
     if (ref) {
       ref.addEventListener("click", (e) => {
-        if (e.target.classList === undefined) {
-          // console.log('undefined true true')
+        if (e.target.classList === undefined) { 
+          // console.log('undefined true true') 
           return;
         } else if (
           !e.target.classList.contains("chat_dropdownHeader__epkvx") &&
@@ -100,13 +100,12 @@ const Chat = () => {
           ) &&
           !e.target.classList.contains("chat_frameChildSmall__DZgXa")
         ) {
-          if (e.target.classList.length == 0){
-            return
-          } else {
+          if (e.target.classList.length == 0) {
+            return;
+          } else { 
                       setShowDropdown(false);
-          // console.log(e.target.classList);
+          // console.log(e.target.classList); 
           }
-
         }
       });
     }
@@ -122,15 +121,14 @@ const Chat = () => {
   };
   const switchToEncryptionMessage = () => {
     setChatState(CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG);
-  }
+  };
 
-  const shortenEthAddress = (address) => {  
-     if (!address)  return "Not Connected"; 
-        const firstStr = address.slice(0,4);
-    const lastStr = address.slice(address.length - 4, address.length)
+  const shortenEthAddress = (address) => {
+    if (!address) return "Not Connected";
+    const firstStr = address.slice(0, 4);
+    const lastStr = address.slice(address.length - 4, address.length);
     return firstStr + "...." + lastStr || "";
-     
-  }
+  };
   const [addFriend, { data, loading, error }] = useMutation(ADD_FRIEND, {
     onCompleted: (data) => {
       alert("Request sent!");
@@ -171,7 +169,11 @@ const Chat = () => {
   });
   return (
     <div className={styles.chat} ref={pageRef}>
-      <Sidebar switchChatStateToFriendList={switchChatStateToFriendList} switchToEncryptionMessage={switchToEncryptionMessage} switchChatStateToPendingFriend={switchChatStateToPendingFriend}/>
+      <Sidebar
+        switchChatStateToFriendList={switchChatStateToFriendList}
+        switchToEncryptionMessage={switchToEncryptionMessage}
+        switchChatStateToPendingFriend={switchChatStateToPendingFriend}
+      />
       <div className={styles.chatRightContainer}>
         <div className={styles.quiltNewLogo8dc214cbfb2f936Parent}>
           <button
@@ -183,7 +185,9 @@ const Chat = () => {
             }}
           >
             <div className={styles.x4c99923bdParent}>
-              <div className={styles.x4c99923bd}>{shortenEthAddress(address) || address}</div>
+              <div className={styles.x4c99923bd}>
+                {shortenEthAddress(address) || address}
+              </div>
               <div className={styles.ethereum}>{network}</div>
             </div>
             <Image className={styles.vectorIcon} alt="" src={arrow} />
@@ -194,9 +198,12 @@ const Chat = () => {
           {chatState === CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST && (
             <PendingRequest />
           )}
-          { chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
-            <Friendlist chatState={chatState} placeholder={"Search ens or 0x41c...bd"} showCommunity={true} />
-
+          {chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
+            <Friendlist
+              chatState={chatState}
+              placeholder={"Search ens or 0x41c...bd"}
+              showCommunity={true}
+            />
           )}
           {chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
             <div className={pendingStyles.padlockMainContainer}>
@@ -412,12 +419,12 @@ const Chat = () => {
                   </button> 
                 </div>
                 </div> */}
-                    {/* <input type="text" className={styles.frameFormInput} />
+                {/* <input type="text" className={styles.frameFormInput} />
                     <button className={styles.iconsaxlinearsend}>
                       <Image className={styles.vectorIcon1} alt="" src={send} />
                     </button>
                   </form> */}
-                  {/* <div className={styles.rightButtonsContainer}>
+                {/* <div className={styles.rightButtonsContainer}>
                     <button className={styles.vectorWrapper}>
                       <Image className={styles.vectorIcon2} alt="" src={file} />
                     </button>

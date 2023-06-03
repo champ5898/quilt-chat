@@ -10,6 +10,7 @@ import cad from "../img/cad.png";
 import { userData } from "../context/userData";
 import { connectTez } from "@/context/tezos";
 import { CREATE_PROFILE } from "@/graphql/queries";
+import { changeNetwork } from "@/context/network";
 
 const Wallet = () => {
   const login = userData((state) => state.login);
@@ -42,9 +43,11 @@ const Wallet = () => {
       login(accounts[0]);
       createAcc(accounts[0], "polygon");
       setNetwork("polygon");
+      await changeNetwork("polygon");
       // window.location.reload();
     } catch (error) {
       alert("Error while connecting to wallet");
+      console.log(error);
     }
   };
   //connect tezos
@@ -53,6 +56,26 @@ const Wallet = () => {
     login(address);
     setNetwork("tezos");
     createAcc(address, "tezos");
+  };
+  //connect caduceus
+  const connectCaduceus = async () => {
+    try {
+      if (!window.ethereum) return alert("Install MetaMask");
+
+      // const accounts = await window.ethereum.request({
+      //   method: "eth_requestAccounts",
+      // });
+      // // setCurrentAccount(accounts[0]);
+      // // console.log(accounts[0]);
+      // login(accounts[0]);
+      // createAcc(accounts[0], "caduceus");
+      // setNetwork("caduceus");
+      await changeNetwork("cmp_testnet");
+      // window.location.reload();
+    } catch (error) {
+      alert("Error while connecting to wallet");
+      console.log(error);
+    }
   };
 
   //Unstoppable
@@ -69,7 +92,7 @@ const Wallet = () => {
 
   return (
     <div className={styles.caduceusParent}>
-      <button className={styles.caduceus}>
+      <button className={styles.caduceus} onClick={() => connectCaduceus()}>
         <Image className={styles.icon} alt="" src={cad} />
         <b className={styles.unstoppable}>Caduceus</b>
       </button>
