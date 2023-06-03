@@ -36,8 +36,13 @@ const Profile = () => {
   const Username = userData((state) => state.username);
   const avatar = userData((state) => state.avatar);
   const setUsername = userData((state) => state.setUsername);
+  // const [keys, setkeys] = useState("");
+
   // const chatState = userData((state) => state.currentChatState);
   // const setCurentChatStateToPendingReq =  userData((state) => state.setCurentChatState(CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST))
+
+  // if (typeof window !== "undefined") {
+  const keys = sessionStorage.getItem("token") ?? "";
 
   const [chatState, setChatState] = useState(
     CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST
@@ -149,31 +154,34 @@ const Profile = () => {
     <div className={styles.chat} ref={pageRef}>
       {showCardItem && (
         <div className={profileStyles.bgOverlay}>
-          <div className={profileStyles.bgOverlayCard} style={{width: "560px", height: "560px"}}>
+          <div
+            className={profileStyles.bgOverlayCard}
+            style={{ width: "560px", height: "560px" }}
+          >
             <p onClick={() => setShowCardItem(false)}>x</p>
             <OverlayCard
               children={
                 <>
-                   <div>
-              <Image className={styles.user4} alt="" src={user4} />
-              <div className={profileStyles.singleEthCard}>
-                <p>The Lost Donkey</p>
-                <p>£3490</p>
-              </div>
+                  <div>
+                    <Image className={styles.user4} alt="" src={user4} />
+                    <div className={profileStyles.singleEthCard}>
+                      <p>The Lost Donkey</p>
+                      <p>£3490</p>
+                    </div>
 
-              <div className={profileStyles.singleEthCard}>
-                <div className={profileStyles.singleEthCardOwned}>
-                  <div>Owned By</div>
-                  <div className={profileStyles.singleEthCardOwnedImg}>
-                <Image className={styles.user1} alt="" src={user1} />
-            <p>crispz.eth</p>
-                </div>
-                </div>
-                
-              </div>
-            </div>
+                    <div className={profileStyles.singleEthCard}>
+                      <div className={profileStyles.singleEthCardOwned}>
+                        <div>Owned By</div>
+                        <div className={profileStyles.singleEthCardOwnedImg}>
+                          <Image className={styles.user1} alt="" src={user1} />
+                          <p>crispz.eth</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </>
-              } />
+              }
+            />
           </div>
         </div>
       )}
@@ -211,8 +219,22 @@ const Profile = () => {
 
                       <p>Secret phase</p>
                       <div className={profileStyles.secretCardsDiv}>
-                        <button>Backup</button>
-                        <button>Reset</button>
+                        <button
+                          onClick={() => {
+                            navigator.clipboard.writeText(keys);
+                            alert("copied to clipboard !!!");
+                          }}
+                        >
+                          Backup
+                        </button>
+                        <button
+                          onClick={() => {
+                            sessionStorage.clear();
+                            router.push("/");
+                          }}
+                        >
+                          Reset
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -268,13 +290,13 @@ const Profile = () => {
             <div onClick={() => setShowCardItem(true)}>
               <Image className={styles.user4} alt="" src={user4} />
             </div>
-             <div onClick={() => setShowCardItem(true)}>
+            <div onClick={() => setShowCardItem(true)}>
               <Image className={styles.user4} alt="" src={user4} />
             </div>
-             <div onClick={() => setShowCardItem(true)}>
+            <div onClick={() => setShowCardItem(true)}>
               <Image className={styles.user4} alt="" src={user4} />
             </div>
-             <div onClick={() => setShowCardItem(true)}>
+            <div onClick={() => setShowCardItem(true)}>
               <Image className={styles.user4} alt="" src={user4} />
             </div>
           </div>
