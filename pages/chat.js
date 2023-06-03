@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import Image from "next/image";
-import { useMutation } from "@apollo/client";
+import Image from "next/image"; 
 import { userData } from "../context/userData";
 import Friendlist from "../components/friendlist";
 import Sidebar from "../components/sidebar";
@@ -21,7 +20,13 @@ import ChatProfileCard from "../fragments/ChatProfileCard";
 import { CHAT_PAGE_CONTROLS } from "../constants/chat";
 import { useRouter } from "next/router";
 import { ADD_FRIEND } from "@/graphql/queries";
-
+import { useMutation,useQuery } from "@apollo/client";
+import {
+  UPDATE_PROFILE,
+  UPDATE_EMAIL,
+  GET_PROFILE_BYADDRESS,
+  UPDATE_USERNAME,
+} from "../graphql/queries";
 const Chat = () => {
   const address = userData((state) => state.address);
   const network = userData((state) => state.network);
@@ -76,7 +81,7 @@ const Chat = () => {
     if (ref) {
       ref.addEventListener("click", (e) => {
         if (e.target.classList === undefined) {
-          console.log('undefined true true')
+          // console.log('undefined true true')
           return;
         } else if (
           !e.target.classList.contains("chat_dropdownHeader__epkvx") &&
@@ -99,7 +104,7 @@ const Chat = () => {
             return
           } else {
                       setShowDropdown(false);
-          console.log(e.target.classList);
+          // console.log(e.target.classList);
           }
 
         }
@@ -140,6 +145,30 @@ const Chat = () => {
     addFriend({ variables: { address: request } });
   };
 
+  let friendData = [];
+  const friends = userData((state) => state.friends);
+
+  friends.forEach((element) => {
+    const { loading, error, data } = useQuery(GET_PROFILE_BYADDRESS, {
+      variables: { address: element },
+    });
+
+    const setFriends = async () => {
+      try {
+        const friend = {
+          address: element,
+          username: await data.getProfileByAddress.username,
+          profilePic: (await data.getProfileByAddress.profilePicture) ?? img,
+        };
+        console.log("friendData");
+        friendData.push(friend);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    setFriends();
+    console.log(friendData);
+  });
   return (
     <div className={styles.chat} ref={pageRef}>
       <Sidebar switchChatStateToFriendList={switchChatStateToFriendList} switchToEncryptionMessage={switchToEncryptionMessage} switchChatStateToPendingFriend={switchChatStateToPendingFriend}/>
