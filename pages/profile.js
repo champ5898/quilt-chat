@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
+import { Web3Storage } from "web3.storage/dist/bundle.esm.min.js";
 import { useMutation } from "@apollo/client";
 import { userData } from "../context/userData";
 import Friendlist from "../components/friendlist";
@@ -27,7 +28,7 @@ import PendingRequest from "@/components/pendingrequest";
 import ChatProfileCard from "../fragments/ChatProfileCard";
 import { CHAT_PAGE_CONTROLS } from "../constants/chat";
 import { useRouter } from "next/router";
-import { ADD_FRIEND } from "@/graphql/queries";
+import { ADD_FRIEND, UPDATE_PROFILE, UPDATE_EMAIL } from "@/graphql/queries";
 import OverlayCard from "@/fragments/OverlayCard";
 
 const Profile = () => {
@@ -35,9 +36,21 @@ const Profile = () => {
   const network = userData((state) => state.network);
   const Username = userData((state) => state.username);
   const avatar = userData((state) => state.avatar);
-  const setUsername = userData((state) => state.setUsername);
+  const setAvatar = userData((state) => state.setAvatar);
+  // const setUsername = userData((state) => state.setUsername);
+  const Email = userData((state) => state.email);
+  const [email, setemail] = useState(Email);
+  const setEmail = userData((state) => state.setEmail);
+  const Bio = userData((state) => state.bio);
+  const setBio = userData((state) => state.setBio);
+  const [description, setdescription] = useState(Bio);
+  const Webpage = userData((state) => state.webpage);
+  const [website, setwebsite] = useState(Webpage);
+  const [fileUrl, setFileUrl] = useState(avatar);
   // const [keys, setkeys] = useState("");
-
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGRBMUQxMzRiODgxNTQ1OEEzOWM3YmIxRTdmRjZiM0JFQTVBZmE5MkEiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NTk5NDc4NTgwODgsIm5hbWUiOiJ0ZXpvcyJ9.l40fHgNQsymrAsuDCRmxpGVaH_6p1OjpHYWSiMZq5RE";
+  const web3storage = new Web3Storage({ token });
   // const chatState = userData((state) => state.currentChatState);
   // const setCurentChatStateToPendingReq =  userData((state) => state.setCurentChatState(CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST))
 
@@ -136,6 +149,26 @@ const Profile = () => {
     const lastStr = address.slice(address.length - 4, address.length);
     return firstStr + "...." + lastStr || "";
   };
+  const [updateProfile] = useMutation(UPDATE_PROFILE, {
+    onCompleted: (data) => {
+      // console.log(data);
+      alert("updated successfully !!");
+      setBio(data.updateProfile.bio);
+      setWebpage(data.updateProfile.externalLink);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+  const [updateEmail] = useMutation(UPDATE_EMAIL, {
+    onCompleted: (data) => {
+      // console.log(data.updateEmail.email);
+      setEmail(data.updateEmail.email);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
   const [addFriend, { data, loading, error }] = useMutation(ADD_FRIEND, {
     onCompleted: (data) => {
       alert("Request sent!");
@@ -149,7 +182,60 @@ const Profile = () => {
   const sendRequest = () => {
     addFriend({ variables: { address: request } });
   };
+  async function upload(imageFile) {
+    const cid = await web3storage.put([imageFile]);
+    // console.log(cid);
+    return cid;
+  }
+  const fileUP = () => {
+    let upload = document.getElementById("fileUpload");
 
+    upload.click();
+  };
+  const uploadFile = async (e) => {
+    // account = await getAccount();
+    const file = e.target.files[0];
+    // console.log(file);
+    if (file) {
+      upload(file).then((e) => {
+        const url = "https://ipfs.io/ipfs/" + e + "/" + file.name;
+        setFileUrl(url);
+        const ProfileUpdateDto = {
+          bio: description,
+          profilePicture: url,
+          coverPicture: "Str",
+          externalLink: website,
+        };
+        updateProfile({
+          variables: {
+            address: address,
+            body: ProfileUpdateDto,
+          },
+        });
+        console.log("Uploaded image: ", url);
+
+        setAvatar(url);
+        // console.log(e);
+      });
+    }
+    //
+  };
+
+  const onSubmit = async () => {
+    updateEmail({ variables: { email: email } });
+    // updateUsername({ variables: { username: username } });
+    const ProfileUpdateDto = {
+      bio: description,
+      profilePicture: fileUrl,
+      coverPicture: "Str",
+      externalLink: website,
+    };
+    updateProfile({
+      variables: {
+        body: ProfileUpdateDto,
+      },
+    });
+  };
   return (
     <div className={styles.chat} ref={pageRef}>
       {showCardItem && (
@@ -174,7 +260,7 @@ const Profile = () => {
                         <div>Owned By</div>
                         <div className={profileStyles.singleEthCardOwnedImg}>
                           <Image className={styles.user1} alt="" src={user1} />
-                          <p>crispz.eth</p>
+                          <p>crisp.eth</p>
                         </div>
                       </div>
                     </div>
@@ -206,16 +292,47 @@ const Profile = () => {
                     <div className={profileStyles.bgOverlayCardMiddleLine} />
                     <div className={profileStyles.bgOverlayCardRight}>
                       <Image
+                        style={{ cursor: "pointer" }}
                         className={profileStyles.user4}
-                        alt=""
-                        src={user4}
+                        alt="User"
+                        src={avatar}
+                        width={50}
+                        height={50}
+                        onClick={() => fileUP()}
+                      />
+                      <input
+                        className="fileUpload"
+                        id="fileUpload"
+                        type="file"
+                        accept="image/png, image/jpg, image/gif, image/jpeg"
+                        onChange={(e) => {
+                          uploadFile(e);
+                        }}
+                        style={{ display: "none" }}
+                      />
+                      <label>{Username}</label>
+                      <label onClick={() => router.push("/username")}>
+                        <button>Change Display Name</button>
+                      </label>
+
+                      <input
+                        onChange={(e) => setemail(e.target.value)}
+                        type="text"
+                        placeholder={Email}
                       />
 
-                      <label>Display Name</label>
-                      <input type="text" />
-
-                      <label>Set Status</label>
-                      <textarea rows={70}></textarea>
+                      <label>Bio</label>
+                      <textarea
+                        onChange={(e) => setdescription(e.target.value)}
+                        placeholder={Bio}
+                        rows={3}
+                      ></textarea>
+                      <label>Webpage</label>
+                      <input
+                        type="text"
+                        onChange={(e) => setwebsite(e.target.value)}
+                        placeholder={Webpage}
+                      />
 
                       <p>Secret phase</p>
                       <div className={profileStyles.secretCardsDiv}>
@@ -236,6 +353,7 @@ const Profile = () => {
                           Reset
                         </button>
                       </div>
+                      <button onClick={() => OnSubmit()}>Submit</button>
                     </div>
                   </div>
                 </>
@@ -271,8 +389,14 @@ const Profile = () => {
 
         <div className={profileStyles.profileContainer}>
           <div className={profileStyles.profileTopDiv}>
-            <Image className={styles.user1} alt="" src={user1} />
-            <p>crispz.eth</p>
+            <Image
+              className={styles.user1}
+              alt=""
+              src={avatar}
+              width={200}
+              height={200}
+            />
+            <p>{Username}</p>
             <div
               className={profileStyles.profileDivEdit}
               onClick={() => setShowOverlay(true)}
