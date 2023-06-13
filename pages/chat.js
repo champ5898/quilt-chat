@@ -40,6 +40,11 @@ const Chat = () => {
     CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG
   );
   const [showDropdown, setShowDropdown] = useState(false);
+  const [currentFriendData, setCurrentFriendData] = useState({
+    username: "",
+    address: "",
+    profilePic: ""
+  });
 
   const pageRef = useRef();
   const [request, setRequest] = useState("");
@@ -167,6 +172,10 @@ const Chat = () => {
     setFriends();
     console.log(friendData);
   });
+
+  const updateCurrentUserOnDashboard = (friend) => {
+    setCurrentFriendData(friend)
+  }
   return (
     <div className={styles.chat} ref={pageRef}>
       <Sidebar
@@ -198,11 +207,13 @@ const Chat = () => {
           {chatState === CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST && (
             <PendingRequest />
           )}
-          {chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
+          {(chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG  || chatState === CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST )&& (
             <Friendlist
               chatState={chatState}
               placeholder={"Search ens or 0x41c...bd"}
               showCommunity={true}
+              switchChatStateToFriendList={switchChatStateToFriendList}
+              updateCurrentUserOnDashboard={updateCurrentUserOnDashboard}
             />
           )}
           {chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
@@ -249,12 +260,12 @@ const Chat = () => {
             <div className={styles.frameContainer}>
               <div className={styles.frameWrapper}>
                 <div className={styles.ellipseParent}>
-                  <Image className={styles.frameChild} alt="" src={user2} />
+                  <Image className={styles.frameChild} alt="" src={currentFriendData.profilePic || user2} />
                   <div className={styles.sunnndayyyParent}>
-                    <div className={styles.sunnndayyy}>Sunnndayyy</div>
+                    <div className={styles.sunnndayyy}>{currentFriendData}</div>
                     <div className={styles.ellipseGroup}>
                       <Image className={styles.ethIcon} alt="" src={ethicon} />
-                      <div className={styles.xf4844ab5b4fc}>0xf4844ab5b4fc</div>
+                      <div className={styles.xf4844ab5b4fc}>{shortenEthAddress(currentFriendData.address)}</div>
                     </div>
                   </div>
                 </div>
