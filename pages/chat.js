@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import Image from "next/image";
-import { useMutation } from "@apollo/client";
+import Image from "next/image"; 
 import { userData } from "../context/userData";
 import Friendlist from "../components/friendlist";
 import Sidebar from "../components/sidebar";
@@ -21,7 +20,13 @@ import ChatProfileCard from "../fragments/ChatProfileCard";
 import { CHAT_PAGE_CONTROLS } from "../constants/chat";
 import { useRouter } from "next/router";
 import { ADD_FRIEND } from "@/graphql/queries";
-
+import { useMutation,useQuery } from "@apollo/client";
+import {
+  UPDATE_PROFILE,
+  UPDATE_EMAIL,
+  GET_PROFILE_BYADDRESS,
+  UPDATE_USERNAME,
+} from "../graphql/queries";
 const Chat = () => {
   const address = userData((state) => state.address);
   const network = userData((state) => state.network);
@@ -35,6 +40,11 @@ const Chat = () => {
     CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG
   );
   const [showDropdown, setShowDropdown] = useState(false);
+  const [currentFriendData, setCurrentFriendData] = useState({
+    username: "",
+    address: "",
+    profilePic: ""
+  });
 
   const pageRef = useRef();
   const [request, setRequest] = useState("");
@@ -75,8 +85,8 @@ const Chat = () => {
 
     if (ref) {
       ref.addEventListener("click", (e) => {
-        if (e.target.classList === undefined) {
-          console.log("undefined true true");
+        if (e.target.classList === undefined) { 
+          // console.log('undefined true true') 
           return;
         } else if (
           !e.target.classList.contains("chat_dropdownHeader__epkvx") &&
@@ -97,9 +107,9 @@ const Chat = () => {
         ) {
           if (e.target.classList.length == 0) {
             return;
-          } else {
-            setShowDropdown(false);
-            console.log(e.target.classList);
+          } else { 
+                      setShowDropdown(false);
+          // console.log(e.target.classList); 
           }
         }
       });
@@ -138,6 +148,34 @@ const Chat = () => {
     addFriend({ variables: { address: request } });
   };
 
+  let friendData = [];
+  const friends = userData((state) => state.friends);
+
+  friends.forEach((element) => {
+    const { loading, error, data } = useQuery(GET_PROFILE_BYADDRESS, {
+      variables: { address: element },
+    });
+
+    const setFriends = async () => {
+      try {
+        const friend = {
+          address: element,
+          username: await data.getProfileByAddress.username,
+          profilePic: (await data.getProfileByAddress.profilePicture) ?? img,
+        };
+        console.log("friendData");
+        friendData.push(friend);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    setFriends();
+    console.log(friendData);
+  });
+
+  const updateCurrentUserOnDashboard = (friend) => {
+    setCurrentFriendData(friend)
+  }
   return (
     <div className={styles.chat} ref={pageRef}>
       <Sidebar
@@ -169,11 +207,13 @@ const Chat = () => {
           {chatState === CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST && (
             <PendingRequest />
           )}
-          {chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
+          {(chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG  || chatState === CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST )&& (
             <Friendlist
               chatState={chatState}
               placeholder={"Search ens or 0x41c...bd"}
               showCommunity={true}
+              switchChatStateToFriendList={switchChatStateToFriendList}
+              updateCurrentUserOnDashboard={updateCurrentUserOnDashboard}
             />
           )}
           {chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG && (
@@ -220,12 +260,12 @@ const Chat = () => {
             <div className={styles.frameContainer}>
               <div className={styles.frameWrapper}>
                 <div className={styles.ellipseParent}>
-                  <Image className={styles.frameChild} alt="" src={user2} />
+                  <Image className={styles.frameChild} alt="" src={currentFriendData.profilePic || user2} />
                   <div className={styles.sunnndayyyParent}>
-                    <div className={styles.sunnndayyy}>Sunnndayyy</div>
+                    <div className={styles.sunnndayyy}>{currentFriendData}</div>
                     <div className={styles.ellipseGroup}>
                       <Image className={styles.ethIcon} alt="" src={ethicon} />
-                      <div className={styles.xf4844ab5b4fc}>0xf4844ab5b4fc</div>
+                      <div className={styles.xf4844ab5b4fc}>{shortenEthAddress(currentFriendData.address)}</div>
                     </div>
                   </div>
                 </div>

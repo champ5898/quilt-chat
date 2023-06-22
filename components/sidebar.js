@@ -16,7 +16,7 @@ const Sidebar = ({ switchChatStateToFriendList,switchChatStateToPendingFriend,sw
   const router = useRouter();
   const routeId = router.asPath;
 
-  console.log("route id =>>>"+ routeId)
+  // console.log("route id =>>>"+ routeId)
   return (
     <div className={styles.sidebarParent}>
       <section className={styles.sidebarParentGroup}>
