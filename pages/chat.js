@@ -175,6 +175,8 @@ const Chat = () => {
   });
 
   const updateCurrentUserOnDashboard = (friend) => {
+    console.log("friend item");
+    console.log(friend);
     setCurrentFriendData(friend);
   };
   return (
@@ -268,12 +270,25 @@ const Chat = () => {
                     alt=""
                     src={currentFriendData.profilePic || user2}
                   />
+                  <Image
+                    className={styles.frameChild}
+                    alt=""
+                    width={60}
+                    height={60}
+                    style={{ borderRadius: "50%" }}
+                    src={currentFriendData.profilePic}
+                  />
                   <div className={styles.sunnndayyyParent}>
-                    <div className={styles.sunnndayyy}>{currentFriendData}</div>
+                    <div className={styles.sunnndayyy}>
+                      {currentFriendData.username}
+                    </div>
                     <div className={styles.ellipseGroup}>
                       <Image className={styles.ethIcon} alt="" src={ethicon} />
                       <div className={styles.xf4844ab5b4fc}>
                         {shortenEthAddress(currentFriendData.address)}
+                      </div>
+                      <div className={styles.xf4844ab5b4fc}>
+                        {currentFriendData.address}
                       </div>
                     </div>
                   </div>
