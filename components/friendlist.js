@@ -77,15 +77,18 @@ const Friendlist = ({
                 <Image className={styles.frameInner} alt="" src={user2} />
                 <div className={styles.westwoodeth}>0xuggjg645ytff</div>
               </button> */}
-            {friends.map((friend) => {
-              console.log("friend 1");
-              console.log(friend);
+            {friends.map((friend, id) => {
+              {/* console.log("friend 1");
+              console.log(friend); */}
               return (
                 <button
                   className={styles.frameWrapper}
                   onClick={() => { 
-                    updateCurrentUserOnDashboard(friend);
-                    switchChatStateToFriendList(friend);
+                    console.log("friend item main");
+                    // console.log(friend);
+                    console.log(friendData);
+                    updateCurrentUserOnDashboard(friendData[id]);
+                    switchChatStateToFriendList();
                   }}
                 >
                   <div className={styles.ellipseGroup}>
