@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache, useMutation, gql } from "@apollo/client";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import React, { useState } from "react";
 
 import { GET_P2P_MESSAGEFEED, SEND_P2P_MESSAGE } from "@/graphql/queries";
 
@@ -22,7 +23,14 @@ sendP2pMessage({
   variables: { data: data },
 });
 
-const { loading, error, daata } = useQuery(GET_P2P_MESSAGEFEED, {
-  variables: { address: address },
-  pollInterval: 1000,
-});
+export const msg = () => {
+  const [address, setaddress] = useState(
+    "tz1Sw1gGA6bi2drimg1yUYF6ZcTsmaCyNnuw"
+  );
+  const { loading, error, msg } = useQuery(GET_P2P_MESSAGEFEED, {
+    variables: { address: address },
+    pollInterval: 1000,
+  });
+  console.log(msg);
+  return <div></div>;
+};

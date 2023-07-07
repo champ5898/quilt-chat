@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import Image from "next/image"; 
+import Image from "next/image";
 import { userData } from "../context/userData";
+import { msg } from "@/context/msg";
 import Friendlist from "../components/friendlist";
 import Sidebar from "../components/sidebar";
 import styles from "../styles/chat.module.css";
@@ -20,7 +21,7 @@ import ChatProfileCard from "../fragments/ChatProfileCard";
 import { CHAT_PAGE_CONTROLS } from "../constants/chat";
 import { useRouter } from "next/router";
 import { ADD_FRIEND } from "@/graphql/queries";
-import { useMutation,useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   UPDATE_PROFILE,
   UPDATE_EMAIL,
@@ -43,7 +44,7 @@ const Chat = () => {
   const [currentFriendData, setCurrentFriendData] = useState({
     username: "",
     address: "",
-    profilePic: ""
+    profilePic: "",
   });
 
   const pageRef = useRef();
@@ -85,8 +86,8 @@ const Chat = () => {
 
     if (ref) {
       ref.addEventListener("click", (e) => {
-        if (e.target.classList === undefined) { 
-          // console.log('undefined true true') 
+        if (e.target.classList === undefined) {
+          // console.log('undefined true true')
           return;
         } else if (
           !e.target.classList.contains("chat_dropdownHeader__epkvx") &&
@@ -107,9 +108,9 @@ const Chat = () => {
         ) {
           if (e.target.classList.length == 0) {
             return;
-          } else { 
-                      setShowDropdown(false);
-          // console.log(e.target.classList); 
+          } else {
+            setShowDropdown(false);
+            // console.log(e.target.classList);
           }
         }
       });
@@ -174,10 +175,11 @@ const Chat = () => {
   });
 
   const updateCurrentUserOnDashboard = (friend) => {
-    setCurrentFriendData(friend)
-  }
+    setCurrentFriendData(friend);
+  };
   return (
     <div className={styles.chat} ref={pageRef}>
+      <msg />
       <Sidebar
         switchChatStateToFriendList={switchChatStateToFriendList}
         switchToEncryptionMessage={switchToEncryptionMessage}
@@ -207,7 +209,8 @@ const Chat = () => {
           {chatState === CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST && (
             <PendingRequest />
           )}
-          {(chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG  || chatState === CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST )&& (
+          {(chatState === CHAT_PAGE_CONTROLS.SHOW_ENCRYPTION_MSG ||
+            chatState === CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST) && (
             <Friendlist
               chatState={chatState}
               placeholder={"Search ens or 0x41c...bd"}
@@ -260,12 +263,18 @@ const Chat = () => {
             <div className={styles.frameContainer}>
               <div className={styles.frameWrapper}>
                 <div className={styles.ellipseParent}>
-                  <Image className={styles.frameChild} alt="" src={currentFriendData.profilePic || user2} />
+                  <Image
+                    className={styles.frameChild}
+                    alt=""
+                    src={currentFriendData.profilePic || user2}
+                  />
                   <div className={styles.sunnndayyyParent}>
                     <div className={styles.sunnndayyy}>{currentFriendData}</div>
                     <div className={styles.ellipseGroup}>
                       <Image className={styles.ethIcon} alt="" src={ethicon} />
-                      <div className={styles.xf4844ab5b4fc}>{shortenEthAddress(currentFriendData.address)}</div>
+                      <div className={styles.xf4844ab5b4fc}>
+                        {shortenEthAddress(currentFriendData.address)}
+                      </div>
                     </div>
                   </div>
                 </div>
