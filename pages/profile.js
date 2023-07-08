@@ -54,9 +54,9 @@ const Profile = () => {
   // const chatState = userData((state) => state.currentChatState);
   // const setCurentChatStateToPendingReq =  userData((state) => state.setCurentChatState(CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST))
 
-  if (typeof window !== "undefined") {
-    const keys = sessionStorage.getItem("token") ?? "";
-  }
+  // if (typeof window !== "undefined") {
+  //   const keys = sessionStorage.getItem("token") ?? "";
+  // }
 
   const [chatState, setChatState] = useState(
     CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST
@@ -339,7 +339,7 @@ const Profile = () => {
                       <div className={profileStyles.secretCardsDiv}>
                         <button
                           onClick={() => {
-                            navigator.clipboard.writeText(keys);
+                            // navigator.clipboard.writeText(keys);
                             alert("copied to clipboard !!!");
                           }}
                         >

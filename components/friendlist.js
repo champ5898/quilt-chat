@@ -15,9 +15,13 @@ import {
 import user2 from "../img/user2.png";
 import user3 from "../img/user3.png";
 import Image from "next/image";
-import { img } from "../context/userData";
+
 import { userData } from "../context/userData";
 import { CHAT_PAGE_CONTROLS } from "../constants/chat";
+
+const img =
+  "https://ipfs.io/ipfs/bafybeif7kurkknls2nd2mmq6l5wq76wraqn2mfjotsienwa5q2ndypgd6u/ava.png";
+
 const Friendlist = ({
   showCommunity,
   placeholder,
@@ -78,12 +82,14 @@ const Friendlist = ({
                 <div className={styles.westwoodeth}>0xuggjg645ytff</div>
               </button> */}
             {friends.map((friend, id) => {
-              {/* console.log("friend 1");
-              console.log(friend); */}
+              {
+                /* console.log("friend 1");
+              console.log(friend); */
+              }
               return (
                 <button
                   className={styles.frameWrapper}
-                  onClick={() => { 
+                  onClick={() => {
                     console.log("friend item main");
                     // console.log(friend);
                     console.log(friendData);
