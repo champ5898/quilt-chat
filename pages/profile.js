@@ -54,8 +54,9 @@ const Profile = () => {
   // const chatState = userData((state) => state.currentChatState);
   // const setCurentChatStateToPendingReq =  userData((state) => state.setCurentChatState(CHAT_PAGE_CONTROLS.SHOW_PENDING_REQUEST))
 
-  // if (typeof window !== "undefined") {
-  const keys = sessionStorage.getItem("token") ?? "";
+  if (typeof window !== "undefined") {
+    const keys = sessionStorage.getItem("token") ?? "";
+  }
 
   const [chatState, setChatState] = useState(
     CHAT_PAGE_CONTROLS.SHOW_FRIEND_LIST
@@ -353,7 +354,7 @@ const Profile = () => {
                           Reset
                         </button>
                       </div>
-                      <button onClick={() => OnSubmit()}>Submit</button>
+                      <button onClick={() => onSubmit()}>Submit</button>
                     </div>
                   </div>
                 </>
