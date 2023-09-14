@@ -71,7 +71,7 @@ export const Msg = ({
     pollInterval: 1000,
   });
   console.log('testing messages')
-  console.log(data.getP2pMessageFeed);
+  console.log(data);
   if (loading) return <p>Loading ...</p>;
   return (
     <>
@@ -88,10 +88,10 @@ export const Msg = ({
           <div className={styles.sunnndayyyParent}>
             <div className={styles.sunnndayyy}>{username}</div>
             <div className={styles.ellipseGroup}>
-              <Image className={styles.ethIcon} alt="" src={ethicon} />
-              <div className={styles.xf4844ab5b4fc}>
+              {/* <Image className={styles.ethIcon} alt="" src={profilePic} width={35} height={35} /> */}
+              {/* <div className={styles.xf4844ab5b4fc}>
                 {shortenEthAddress(clickedAddress || "")}
-              </div>
+              </div> */}
               <div className={styles.xf4844ab5b4fc}>{clickedAddress || ""}</div>
             </div>
           </div>
@@ -111,7 +111,7 @@ export const Msg = ({
       </div>
       <section className={styles.frameSection}>
         <div className={styles.frameDiv}>
-          {data.getP2pMessageFeed &&
+          {data &&
             data.getP2pMessageFeed.map((feed) => {
               if (feed.senderAddress !== clickedAddress) {
                 return (

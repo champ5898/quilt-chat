@@ -30,7 +30,7 @@ const Friendlist = ({
   updateCurrentUserOnDashboard,
 }) => {
   let friendData = [];
-  const friends = userData((state) => state.friends);
+  const friends = userData((state) => state.friends); 
 
   friends.forEach(async (element) => {
     const { loading, error, data } = useQuery(GET_PROFILE_BYADDRESS, {
@@ -63,6 +63,7 @@ const Friendlist = ({
     const lastStr = address.slice(address.length - 4, address.length);
     return firstStr + "...." + lastStr || "";
   };
+
 
   return (
     <section className={styles.frameParent}>
