@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import Image from "next/image";
-import { useMutation } from "@apollo/client";
+import Image from "next/image"; 
 import { userData } from "../context/userData";
 import Friendlist from "../components/friendlist";
 import Sidebar from "../components/sidebar";
@@ -20,8 +19,14 @@ import PendingRequest from "@/components/pendingrequest";
 import ChatProfileCard from "../fragments/ChatProfileCard";
 import { CHAT_PAGE_CONTROLS } from "../constants/chat";
 import { useRouter } from "next/router";
-import { ADD_FRIEND } from "@/graphql/queries";
-
+import { ADD_FRIEND,GET_PROFILE_BYADDRESS } from "@/graphql/queries";
+import {
+  ApolloClient,
+  InMemoryCache,
+  useQuery,
+  useMutation,
+  gql,
+} from "@apollo/client";
 const Chat = () => {
   const address = userData((state) => state.address);
   const network = userData((state) => state.network);
@@ -40,7 +45,7 @@ const Chat = () => {
   const [request, setRequest] = useState("");
   const logout = userData((state) => state.logout);
   const router = useRouter();
-
+  console.log("address =>>> ", address)
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -121,7 +126,7 @@ const Chat = () => {
   const [addFriend, { data, loading, error }] = useMutation(ADD_FRIEND, {
     onCompleted: (data) => {
       alert("Request sent!");
-      switchChatStateToFriendList();
+      // switchChatStateToFriendList();
       console.log(data);
     },
     onError: (error) => {
@@ -140,6 +145,26 @@ const Chat = () => {
     const lastStr = address.slice(address.length - 4, address.length);
     return firstStr + "...." + lastStr || "";
   };
+
+  
+ 
+
+ 
+    const getMyProfileByAddress = (address) =>{
+      const { loading, error, data } = useQuery(GET_PROFILE_BYADDRESS, {
+        variables: { address: address },
+        onCompleted: (data) => {
+          console.log("Request sent!"); 
+          console.log(data.getProfileByAddress);
+        },
+        onError: (error) => {
+          console.log(request);
+          setRequest(request.toLowerCase()); 
+        },
+      });
+    }
+    getMyProfileByAddress(address)
+  
   return (
     <div className={styles.chat} ref={pageRef}>
       <Sidebar
